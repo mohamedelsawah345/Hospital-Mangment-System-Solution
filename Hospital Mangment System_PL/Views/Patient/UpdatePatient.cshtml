@@ -1,0 +1,34 @@
+﻿@using Hospital_Mangment_System_BLL.View_model.patientVM
+@model UpdatePatientVM
+@{
+    ViewData["Title"] = "UpdatePatient";
+}
+
+<form asp-action="UpdatePatient" asp-controller="patient">
+
+    <div class="mb-3">
+        <label for="ID" class="form-label">ID</label>
+        <input asp-for=ID type="text" class="form-control" id="ID" placeholder="Enter ID">
+    </div>
+
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input asp-for=Email type="email" class="form-control" id="Email" placeholder="Enter Email">
+    </div>
+
+
+    <div class="mb-3">
+        <label for="Phone1" class="form-label">Phone1</label>
+        <input asp-for=phone1 type="text" class="form-control" id="Phone1" placeholder="Enter Phone1">
+    </div>
+
+    <div class="mb-3">
+        <label for="Phone2" class="form-label">Phone2</label>
+        <input asp-for=phone2 type="text" class="form-control" id="Phone2" placeholder="Enter Phone2">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Summit</button>
+
+
+
+</form>
