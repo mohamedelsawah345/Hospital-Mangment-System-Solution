@@ -16,7 +16,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
             _DBcontext = DBcontext;
         }
-        public bool add( bill bill)
+        public bool add( Bill bill)
         {
             var result = _DBcontext.bills.Add(bill);
             
@@ -50,18 +50,18 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
             }
         }
 
-        public List<Entites.bill> getAll()
+        public List<Bill> getAll()
         {
             return _DBcontext.bills.ToList();
         }
 
-        public Entites.bill getbyId(int id)
+        public Bill getbyId(int id)
         {
             return _DBcontext.bills.Where(p => p.ID == id).FirstOrDefault(); //don't forget frist or defualt 
 
         }
 
-        public bool update(bill bill)
+        public bool update(Bill bill)
         {
             var result = _DBcontext.bills.Where(p => p.ID == bill.ID).FirstOrDefault(); //don't forget frist or defualt 
 
