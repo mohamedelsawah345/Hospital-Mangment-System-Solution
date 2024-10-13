@@ -52,6 +52,7 @@ namespace Hospital_Mangment_System_PL.Controllers
             //return View();
 
         }
+        //comment test
 
         public IActionResult DeletePatient(int id)
         {
