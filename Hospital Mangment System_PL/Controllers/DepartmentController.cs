@@ -39,7 +39,7 @@ namespace Hospital_Mangment_System_PL.Controllers
         public IActionResult GetDepartmentById()
         {
 
-            var result = departmentService.getbyId(5);
+            var result = departmentService.getbyId(6);
 
             return View(result);
 

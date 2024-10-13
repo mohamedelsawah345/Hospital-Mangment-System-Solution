@@ -26,7 +26,6 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
             if (result!=null)
             {
-                _DBcontext.SaveChanges();
                 return true;
             }
             else
