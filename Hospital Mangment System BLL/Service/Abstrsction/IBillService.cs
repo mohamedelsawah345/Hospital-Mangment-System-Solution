@@ -10,14 +10,14 @@ namespace Hospital_Mangment_System_BLL.Service.Abstrsction
     public interface IBillService
     {
 
-        public bool add(bill bill);
+        public bool add(Bill bill);
         public bool delete(int id);
 
-        public bool update(bill bill);
+        public bool update(Bill bill);
 
-        public bill getbyId(int id);
+        public Bill getbyId(int id);
 
-        public List<bill> getAll();
+        public List<Bill> getAll();
 
 
     }

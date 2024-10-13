@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hospital_Mangment_System_DAL.Entites
 {
-    public class bill
+    public class Bill
     {
         public int ID { get; set; }
 
@@ -17,7 +17,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public DateOnly DateOfIssue { get; set; }
 
         [ForeignKey("patientId")]
-        public patient patient { get; set; }
+        public Patient patient { get; set; }
 
         public int patientId { get; set; }
 

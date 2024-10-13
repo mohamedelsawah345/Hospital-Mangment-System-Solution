@@ -19,7 +19,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
 
 
-        public bool add(patient patient)
+        public bool add(Patient patient)
         {
             var result = _DBcontext.patients.Add(patient);
            
@@ -56,21 +56,21 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
         }
 
-        public List<patient> getAll()
+        public List<Patient> getAll()
         {
         
                 return _DBcontext.patients.ToList();
 
         }
 
-        public patient getbyId(int id)
+        public Patient getbyId(int id)
         {
             return _DBcontext.patients.Where(p => p.Id == id).FirstOrDefault(); //don't forget frist or defualt 
 
 
         }
 
-        public bool update(patient patient)
+        public bool update(Patient patient)
         {
           var result= _DBcontext.patients.Where(p=>p.Id== patient.Id).FirstOrDefault(); //don't forget frist or defualt 
 

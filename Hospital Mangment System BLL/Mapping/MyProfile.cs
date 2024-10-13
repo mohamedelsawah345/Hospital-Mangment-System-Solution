@@ -8,10 +8,10 @@ namespace Hospital_Mangment_System_BLL.Mapping
     {
         public MyProfile()
         {
-            CreateMap<CreatePatientVM, patient>();
-            CreateMap<patient, GetPatientByIdVM>(); // Don't forger this to tell utomaber how work
-            CreateMap<patient, GetAllPatientsVM>();
-            CreateMap<UpdatePatientVM, patient>();
+            CreateMap<CreatePatientVM, Patient>();
+            CreateMap<Patient, GetPatientByIdVM>(); // Don't forger this to tell utomaber how work
+            CreateMap<Patient, GetAllPatientsVM>();
+            CreateMap<UpdatePatientVM, Patient>();
 
 
 

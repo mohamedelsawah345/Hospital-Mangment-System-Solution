@@ -29,7 +29,7 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             if (patientvm != null)
             {
                
-                var result=_mapper.Map<patient>(patientvm);
+                var result=_mapper.Map<Patient>(patientvm);
 
                 _patientsRepo.add(result);
                 return true;
@@ -76,7 +76,7 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             if (patientvm != null)
             {
 
-                var result = _mapper.Map<patient>(patientvm);
+                var result = _mapper.Map<Patient>(patientvm);
 
                 _patientsRepo.update(result);
                 return true;
