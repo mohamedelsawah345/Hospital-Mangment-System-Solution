@@ -14,6 +14,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public int NurseID { get; set; }
         public string Name { get; set; }
         public List<string> phones { get; set; }
+        public bool? IsDeleted { get; set; }
         public int Dnum { get; set; }
         public Department Department { get; set; }
 

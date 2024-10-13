@@ -18,6 +18,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public string Speciality { get; set; }
 
         public string Phone { get; set; }
+        public bool? IsDeleted { get; set; }
 
         // Navigation property - A doctor works in one department
         public int Dnum { get; set; }

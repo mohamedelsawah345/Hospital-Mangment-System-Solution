@@ -1,4 +1,5 @@
 using Hospital_Mangment_System_BLL.Mapping;
+using Hospital_Mangment_System_BLL.Service.Abstrsction;
 using Hospital_Mangment_System_BLL.Service.Implementation;
 using Hospital_Mangment_System_BLL.View_model.patientVM;
 using Hospital_Mangment_System_DAL.DB;
@@ -31,6 +32,9 @@ namespace Hospital_Mangment_System_PL
 
             builder.Services.AddScoped<IPatientsRepo, PatientsRepo>();
             builder.Services.AddScoped<IPatientService, PatientService>();
+
+            builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
             // maping service
             builder.Services.AddAutoMapper(x => x.AddProfile(new MyProfile()));

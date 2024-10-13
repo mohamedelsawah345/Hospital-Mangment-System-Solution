@@ -23,7 +23,6 @@ namespace Hospital_Mangment_System_DAL.Entites
         public int? phone2 { get; set; }
 
         public char Gender { get; set; }
-
         public List<Bill>? Bills { get; set; }
         public List<Appointment>? Appointments { get; set; }
         public List<Addmission>? Addmissions { get; set; }
