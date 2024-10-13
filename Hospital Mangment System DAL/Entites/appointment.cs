@@ -14,6 +14,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public DateTime Date { get; set; }
         public DateTime timeOftheappointment { get; set; }
         public string Reason_Of_Visit { get; set; }
+        public bool? IsDeleted { get; set; }
         public int patient_id { get; set; }
         public Patient patient { get; set; }
         //another edit
