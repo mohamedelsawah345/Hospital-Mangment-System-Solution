@@ -26,7 +26,7 @@ namespace Hospital_Mangment_System_DAL.DB
         public DbSet<Medical_equipment> medical_Equipment { get; set; }
         public DbSet<Lap_test> lap_Tests { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
-
+        //abnaser
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
