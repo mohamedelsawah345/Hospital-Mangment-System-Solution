@@ -16,6 +16,6 @@ namespace Hospital_Mangment_System_BLL.View_model.patientVM
 
         public GetPatientByIdVM getbyId(int id);
 
-        public List<GetAllPatientsVM> getAll();
+        public List<GetAllPatientssVM> getAll();
     }
 }

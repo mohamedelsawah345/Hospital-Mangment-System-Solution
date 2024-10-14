@@ -18,9 +18,9 @@ namespace Hospital_Mangment_System_DAL.Entites
         public DateOnly birthday { get; set; }
 
 
-        public int phone1 { get; set; }
+        public string phone1 { get; set; }
 
-        public int? phone2 { get; set; }
+        public string? phone2 { get; set; }
 
         public char Gender { get; set; }
         public List<Bill>? Bills { get; set; }
