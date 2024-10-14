@@ -9,7 +9,7 @@ namespace Hospital_Mangment_System_BLL.View_model.DepartmentVM
     public class GetAllDepartmentsVM
     {
         public int? Dnum { get; set; }
-        public int? Dname { get; set; }
+        public string? Dname { get; set; }
         public string? Location { get; set; }
     }
 }
