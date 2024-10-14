@@ -28,6 +28,7 @@ namespace Hospital_Mangment_System_PL
             );
 
             //Register Repository Service
+            //Add Service Here For Every One 
 
             builder.Services.AddScoped<IPatientsRepo, PatientsRepo>();
             builder.Services.AddScoped<IPatientService, PatientService>();
