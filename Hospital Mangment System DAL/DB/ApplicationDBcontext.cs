@@ -16,6 +16,7 @@ namespace Hospital_Mangment_System_DAL.DB
 
             
         }
+        //test1
 
        public DbSet<Patient> patients { get; set; }
        public DbSet<Bill> bills { get; set; }

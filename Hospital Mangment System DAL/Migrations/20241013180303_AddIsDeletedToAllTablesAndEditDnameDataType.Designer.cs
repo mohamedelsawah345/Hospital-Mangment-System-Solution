@@ -4,6 +4,7 @@ using Hospital_Mangment_System_DAL.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital_Mangment_System_DAL.Migrations
 {
     [DbContext(typeof(ApplicationDBcontext))]
-    partial class ApplicationDBcontextModelSnapshot : ModelSnapshot
+    [Migration("20241013180303_AddIsDeletedToAllTablesAndEditDnameDataType")]
+    partial class AddIsDeletedToAllTablesAndEditDnameDataType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,6 +124,9 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Property<string>("Dname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Dr_Id")
+                        .HasColumnType("int");
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
@@ -286,12 +292,11 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Property<DateOnly>("birthday")
                         .HasColumnType("date");
 
-                    b.Property<string>("phone1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("phone1")
+                        .HasColumnType("int");
 
-                    b.Property<string>("phone2")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("phone2")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

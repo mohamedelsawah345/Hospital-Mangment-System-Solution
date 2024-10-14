@@ -11,6 +11,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public int room_number { get; set; }
         public DateOnly Addmission_Date { get; set; }
         public DateOnly Date_discharge { get; set; }
+        public bool? IsDeleted { get; set; }
         public int Patient_Id { get; set; }
         //test 1 2 3
         /// <summary>

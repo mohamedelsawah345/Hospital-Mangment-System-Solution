@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hospital_Mangment_System_DAL.Entites
 {
@@ -12,9 +8,9 @@ namespace Hospital_Mangment_System_DAL.Entites
     {
         [Key]
         public int Dnum { get; set; }
-        public int Dname { get; set; }
+        public string Dname { get; set; }
         public string Location { get; set; }
-        public int Dr_Id { get; set; }
+        public bool? IsDeleted { get; set; }
         public int? ManagerId { get; set; }
 
         // Navigation property - The doctor managing this department
