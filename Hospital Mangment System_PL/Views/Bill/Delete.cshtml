@@ -1,0 +1,11 @@
+﻿@using Hospital_Mangment_System_BLL.View_model.BillVM
+@model GetBillByIdVM
+
+<h2>Delete Bill</h2>
+<p>Are you sure you want to delete this bill?</p>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="ID" value="@Model.ID" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

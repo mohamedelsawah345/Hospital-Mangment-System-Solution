@@ -50,11 +50,11 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
            
         }
 
-        public List<GetAllPatientsVM> getAll()
+        public List<GetAllPatientssVM> getAll()
         {
 
             var result = _patientsRepo.getAll().ToList();
-            var newData= _mapper.Map< List<GetAllPatientsVM>>(result);
+            var newData= _mapper.Map< List<GetAllPatientssVM>>(result);
 
             return newData;
 

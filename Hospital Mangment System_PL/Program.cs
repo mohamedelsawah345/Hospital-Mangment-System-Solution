@@ -32,9 +32,12 @@ namespace Hospital_Mangment_System_PL
 
             builder.Services.AddScoped<IPatientsRepo, PatientsRepo>();
             builder.Services.AddScoped<IPatientService, PatientService>();
-
+            //department service
             builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+            //bill service
+            builder.Services.AddScoped<IbillsRepo,billsRepo>();
+            builder.Services.AddScoped<IBillService,BillService>();
 
             // maping service
             builder.Services.AddAutoMapper(x => x.AddProfile(new MyProfile()));
