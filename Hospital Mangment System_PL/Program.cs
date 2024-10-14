@@ -38,6 +38,9 @@ namespace Hospital_Mangment_System_PL
             //bill service
             builder.Services.AddScoped<IbillsRepo,billsRepo>();
             builder.Services.AddScoped<IBillService,BillService>();
+            //Nurse Service          
+            builder.Services.AddScoped<INurseRepo, NurseRepo>();
+            builder.Services.AddScoped<INurseService, NurseService>();
 
             // maping service
             builder.Services.AddAutoMapper(x => x.AddProfile(new MyProfile()));
