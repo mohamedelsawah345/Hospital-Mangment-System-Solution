@@ -18,37 +18,40 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         }
         public bool add( Bill bill)
         {
-            var result = _DBcontext.bills.Add(bill);
-            
+            try
+            {
+                var result = _DBcontext.bills.Add(bill);
+                    _DBcontext.SaveChanges();
+                    return true;
+               
+            }
+            catch (Exception ex)
+            {
+                return false ;
 
-            if (result != null)
-            {
-                _DBcontext.SaveChanges();
-                return true;
             }
-            else
-            {
-                return false;
-            }
-        }
 
       
+        }
+
+
 
         public bool delete(int id)
         {
-            var result = _DBcontext.bills.Where(p => p.ID == id).FirstOrDefault(); //don't forget frist or defualt 
-
+            var result = _DBcontext.bills.Where(p => p.ID == id).FirstOrDefault(); // Find the bill by ID
 
             if (result != null)
             {
-                result.IsDeleted = true;
+                result.IsDeleted = true; // Mark as deleted
+                _DBcontext.SaveChanges(); 
                 return true;
             }
             else
             {
-                return false;
+                return false; 
             }
         }
+
 
         public List<Bill> getAll()
         {
@@ -57,29 +60,37 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
         public Bill getbyId(int id)
         {
-            return _DBcontext.bills.Where(p => p.ID == id).FirstOrDefault(); //don't forget frist or defualt 
+            try
+            {
+                return _DBcontext.bills.Where(p => p.ID == id).FirstOrDefault(); //don't forget frist or defualt 
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
 
         }
 
         public bool update(Bill bill)
         {
-            var result = _DBcontext.bills.Where(p => p.ID == bill.ID).FirstOrDefault(); //don't forget frist or defualt 
-
-
-
-            if (result != null)
+            try
             {
 
-                result.Amount= bill.Amount;
-                
+                var result = _DBcontext.bills.Where(p => p.ID == bill.ID).FirstOrDefault(); //don't forget frist or defualt 
 
-                _DBcontext.SaveChanges();
-                return true;
+                    result.Amount = bill.Amount;
+
+                    _DBcontext.SaveChanges();
+                    return true;
+              
             }
-            else
+            catch (Exception ex)
             {
-                return false;
+                return false; 
+
             }
+
+        
         }
     }
 }

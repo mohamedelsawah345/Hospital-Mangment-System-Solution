@@ -1,4 +1,5 @@
-﻿using Hospital_Mangment_System_DAL.Entites;
+﻿using Hospital_Mangment_System_BLL.View_model.BillVM;
+using Hospital_Mangment_System_DAL.Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,14 @@ namespace Hospital_Mangment_System_BLL.Service.Abstrsction
     public interface IBillService
     {
 
-        public bool add(Bill bill);
+        public bool add(CreateBillVM bill);
         public bool delete(int id);
 
-        public bool update(Bill bill);
+        public bool update(UpdateBillVM bill);
 
-        public Bill getbyId(int id);
+        public GetBillByIdVM getbyId(int  id);
 
-        public List<Bill> getAll();
-
+        public List<GetAllBillsVM> getAll();
 
     }
 }
