@@ -1,0 +1,34 @@
+﻿@model Hospital_Mangment_System_BLL.View_model.AppointmentVM.GetAppointmentByIDVM
+
+@{
+    ViewBag.Title = "Appointment Details";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Appointment Details</h2>
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Appointment ID: @Model.Appointment_Id</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Patient ID:</dt>
+                <dd class="col-sm-9">@Model.Patient_id</dd>
+
+                <dt class="col-sm-3">Date:</dt>
+                <dd class="col-sm-9">@Model.Date.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                <dt class="col-sm-3">Reason of Visit:</dt>
+                <dd class="col-sm-9">@Model.Reason_Of_Visit</dd>
+            </dl>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="UpdateAppointment" asp-route-id="@Model.Appointment_Id" class="btn btn-warning">Edit Appointment</a>
+            <a asp-action="GetAllAppointment" class="btn btn-secondary">Back to Appointment List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}

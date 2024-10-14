@@ -1,4 +1,5 @@
-using Hospital_Mangment_System_BLL.Mapping;
+﻿using Hospital_Mangment_System_BLL.Mapping;
+using Hospital_Mangment_System_BLL.Service.Abstraction;
 using Hospital_Mangment_System_BLL.Service.Implementation;
 using Hospital_Mangment_System_BLL.View_model.patientVM;
 using Hospital_Mangment_System_DAL.DB;
@@ -31,6 +32,11 @@ namespace Hospital_Mangment_System_PL
 
             builder.Services.AddScoped<IPatientsRepo, PatientsRepo>();
             builder.Services.AddScoped<IPatientService, PatientService>();
+            
+            // Register Appointment Repository and Service
+            builder.Services.AddScoped<IappointmentRepo, appointmentRepo>(); // تسجيل الـ AppointmentRepo
+            builder.Services.AddScoped<IAppointmentService, AppointmentService>(); // تسجيل الـ AppointmentService
+
 
             // maping service
             builder.Services.AddAutoMapper(x => x.AddProfile(new MyProfile()));
