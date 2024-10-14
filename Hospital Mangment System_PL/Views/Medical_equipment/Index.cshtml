@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Hospital_Mangment_System_DAL.Entites.Medical_equipment>
+
+@{
+    ViewData["Title"] = "Index";
+    }
+    <table class="table table-hover">
+
+        <thead>
+            <tr>
+            <th scope="col">Equipment_Id</th>
+                <th scope="col">Equip_name</th>
+                <th scope="col">Maintence_date</th>
+                <th scope="col">Dnum</th>
+                <th scope="col">IsDeleted</th>
+            <th scope="col">Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            @foreach (var Medical_equipment in Model )
+           { <tr>
+                    <th scope="row">@Medical_equipment.Equipment_Id</th>
+                    <td>@Medical_equipment.Equip_name</td>
+                    <td>@Medical_equipment.Maintence_date</td>
+                    <td>@Medical_equipment.Department</td>
+                    <td>@Medical_equipment.Dnum</td>
+            </tr>
+           }
+ 
+
+
+    </tbody>
+</table>

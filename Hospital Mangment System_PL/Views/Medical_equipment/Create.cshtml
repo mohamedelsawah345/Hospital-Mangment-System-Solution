@@ -1,0 +1,32 @@
+﻿@model Hospital_Mangment_System_DAL.Entites.Medical_equipment
+
+@{
+    ViewData["Title"] = "Create";
+}
+<form>
+    <div class="mb-3">
+        <label for="exampleInputEquip_name" class="form-label">Equipment Name</label>
+        <input type="Equip_name" class="form-control" id="exampleInputEquip_name" aria-describedby="Equip_nameHelp">
+        <div id="Equip_nameHelp" class="form-text">Type the new Equipment Name.</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputMaintence_date" class="form-label">Maintence Date</label>
+        <input type="Maintence_date" class="form-control" id="exampleInputMaintence_date">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputDnum" class="form-label">Department Number</label>
+        <input type="Dnum" class="form-control" id="exampleInputDnum" aria-describedby="DnumHelp">
+        <div id="DnumHelp" class="form-text">Type The Department Number.</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputDepartment" class="form-label">Department Name</label>
+        <input type="Department" class="form-control" id="exampleInputDepartment" aria-describedby="DepartmentHelp">
+        <div id="DepartmentHelp" class="form-text">Type the related Department Name.</div>
+    </div>
+
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Be Sure Before Confirm Data</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

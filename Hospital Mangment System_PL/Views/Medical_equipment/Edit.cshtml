@@ -1,0 +1,33 @@
+﻿@model Hospital_Mangment_System_DAL.Entites.Medical_equipment
+
+@{
+    ViewData["Title"] = "Edit";
+    }
+    <form asp-action="Edit" asp-controller="medical equipment">
+
+        <div class="mb-3">
+        <label for="Equipment_Id" class="form-label">Equipment ID</label>
+        <input asp-for=Equipment_Id type="text" class="form-control" id="Equipment_IdD" placeholder="Enter ID">
+        </div>
+
+        <div class="mb-3">
+            <label for="Equip_name" class="form-label">Equipment Name</label>
+            <input asp-for=Equip_name type="Equip_name" class="form-control" id="Equip_name" placeholder="Enter Equipment Name">
+        </div>
+
+
+        <div class="mb-3">
+            <label for="Dnum" class="form-label">Dnum</label>
+            <input asp-for=Dnum type="text" class="form-control" id="Dnum" placeholder="Enter Department Number">
+        </div>
+
+        <div class="mb-3">
+            <label for="Department" class="form-label">Department Name</label>
+            <input asp-for=Department type="text" class="form-control" id="Department" placeholder="Enter Department Name">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Summit</button>
+
+
+
+    </form>
