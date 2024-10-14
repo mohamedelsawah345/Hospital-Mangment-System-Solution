@@ -1,0 +1,36 @@
+﻿@using Hospital_Mangment_System_BLL.View_model.NurseVM
+@model CreateNurseVM;
+
+
+@{
+    ViewData["Title"] = "AddNurse";
+}
+
+
+<form asp-action="AddNurse" asp-controller="nurse">
+
+
+    <div class="mb-3">
+        <label for="Nurse_Name" class="form-label">Nurse Name</label>
+        <input asp-for=Name type="text" class="form-control" id="Nurse_Name" placeholder="Enter Nurse Name">
+    </div>
+
+    <div class="mb-3">
+        <label for="Phone" class="form-label">Phone</label>
+        <input asp-for=phones type="text" class="form-control" id="Phone" placeholder="Enter Phone">
+    </div>
+    <div class="mb-3">
+        <label for="Dnum" class="form-label">Department</label>
+        <input asp-for=Dnum type="text" class="form-control" id="Dnum" placeholder="Enter Department">
+    </div>
+
+
+
+
+    <button type="submit" class="btn btn-primary">Summit</button>
+
+
+
+</form>
+
+
