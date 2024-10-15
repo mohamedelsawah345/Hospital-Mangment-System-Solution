@@ -15,6 +15,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public DateTime Maintence_date { get; set; }
         public bool? IsDeleted { get; set; }
         public int? Dnum { get; set; }
+        public string Imagepath { get; set; }
         public Department Department { get; set; }
     }
 }

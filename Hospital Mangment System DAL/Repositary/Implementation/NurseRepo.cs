@@ -77,6 +77,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
             {
                 result.Name = nurse.Name;
                 result.phones = nurse.phones;
+                result.Imagepath = nurse.Imagepath;
 
 
                 _DBcontext.SaveChanges();
