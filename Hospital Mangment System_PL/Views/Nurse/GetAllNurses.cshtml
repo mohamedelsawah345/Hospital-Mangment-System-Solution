@@ -1,0 +1,18 @@
+﻿@using Hospital_Mangment_System_BLL.View_model.NurseVM
+@{
+    ViewData["Title"] = "GetAllNurses";
+}
+
+@model List< GetAllNursesVM>
+
+
+@foreach (var item in Model)
+{
+
+    <h1>Id is @item.NurseID :Name is @item.Name :Phone is @item.phones  </h1>
+
+}
+
+
+<h1>Update Nurse</h1>
+

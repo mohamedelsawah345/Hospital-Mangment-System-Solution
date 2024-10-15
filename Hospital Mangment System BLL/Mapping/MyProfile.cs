@@ -1,7 +1,13 @@
 ﻿using AutoMapper;
+
+using Hospital_Mangment_System_BLL.View_model;
 using Hospital_Mangment_System_BLL.View_model.BillVM;
 using Hospital_Mangment_System_BLL.View_model.DepartmentVM;
+
 using Hospital_Mangment_System_BLL.View_model.DoctorVM;
+
+
+
 using Hospital_Mangment_System_BLL.View_model.patientVM;
 using Hospital_Mangment_System_DAL.Entites;
 
@@ -15,6 +21,11 @@ namespace Hospital_Mangment_System_BLL.Mapping
             CreateMap<Patient, GetPatientByIdVM>(); // Don't forger this to tell auto mapper how work
             CreateMap<Patient, GetAllPatientssVM>();
             CreateMap<UpdatePatientVM, Patient>();
+
+            CreateMap<AddAppointmentVM, Appointment>();
+            CreateMap<Appointment , GetAppointmentByIDVM>();
+            CreateMap<Appointment, GetAllAppointmentVM>();
+            CreateMap< UpdateAppointmentVM, Appointment>();
 
 
             CreateMap<CreateDepartmentVM, Department>();
@@ -30,12 +41,29 @@ namespace Hospital_Mangment_System_BLL.Mapping
 
 
 
+
             CreateMap<CreateDoctorVM, Doctor>();
             CreateMap<Doctor, GetDoctorByIdVM>(); 
             CreateMap<Doctor, GetAllDoctorVM>();
             CreateMap<UpdateDoctorVM, Doctor>();
 
+            CreateMap<Medical_equipment, GetEquipmentByIdVM>();
+            CreateMap<Medical_equipment, GetAllEquipmentVM>();
+            CreateMap<CreateEquipmentVM, Medical_equipment>();
+            CreateMap<UpdateEquipmentVM, Medical_equipment>();
+
+
+
+            CreateMap<Nurse, GetNurseByIdVM>();
+            CreateMap<Nurse, GetAllNursesVM>();
+            CreateMap<CreateNurseVM, Nurse>();
+            CreateMap<UpdateNurseVM, Nurse>();
+
+
+
         }
+
+
 
 
     }

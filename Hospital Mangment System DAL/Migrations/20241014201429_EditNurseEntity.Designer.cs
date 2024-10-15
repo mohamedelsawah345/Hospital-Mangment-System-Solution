@@ -4,6 +4,7 @@ using Hospital_Mangment_System_DAL.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital_Mangment_System_DAL.Migrations
 {
     [DbContext(typeof(ApplicationDBcontext))]
-    partial class ApplicationDBcontextModelSnapshot : ModelSnapshot
+    [Migration("20241014201429_EditNurseEntity")]
+    partial class EditNurseEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,7 +218,7 @@ namespace Hospital_Mangment_System_DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Equipment_Id"));
 
-                    b.Property<int?>("Dnum")
+                    b.Property<int>("Dnum")
                         .HasColumnType("int");
 
                     b.Property<string>("Equip_name")
@@ -374,7 +377,8 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.HasOne("Hospital_Mangment_System_DAL.Entites.Department", "Department")
                         .WithMany("medical_Equipments")
                         .HasForeignKey("Dnum")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Department");
                 });
