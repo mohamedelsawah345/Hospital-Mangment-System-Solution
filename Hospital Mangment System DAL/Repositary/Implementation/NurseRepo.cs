@@ -50,7 +50,8 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         public List<Nurse> getAll()                  //need to add department name 
         {
 
-            return _DBcontext.nurses.ToList();
+            var result = _DBcontext.nurses.Include(n => n.Department).ToList();
+            return result;
         }
 
 
