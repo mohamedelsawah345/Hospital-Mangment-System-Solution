@@ -9,7 +9,6 @@ namespace Hospital_Mangment_System_BLL.View_model.NurseVM
         public long? phones { get; set; }
         public bool? IsDeleted { get; set; }
         public int? Dnum { get; set; }
-        public Department? Department { get; set; }
         public string? DepartmentName { get; set; }
     }
 }
