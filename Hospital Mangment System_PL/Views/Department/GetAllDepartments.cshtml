@@ -6,10 +6,48 @@
 @model List< GetAllDepartmentsVM>
 
 
-@foreach (var item in Model)
-{
 
-    <h1>Id is @item.Dnum :Name is @item.Dname :Location is @item.Location </h1>
+
+<h2>Departments</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Dnum</th>          <!-- Department ID -->
+            <th>Dname</th         <!-- Department Name -->
+            <th>Location</th      <!-- Location -->
+            <th>Doctors</th       <!-- List of Doctors -->
+            <th>Nurses</th        <!-- List of Nurses -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var department in Model)
+        {
+            <tr>
+                <td>@department.Dnum</td>           <!-- Show Department ID -->
+                <td>@department.Dname</td>        <!-- Show Department Name -->
+                <td>@department.Location</td>               <!-- Show Location -->
+                <td>
+                    <ul>
+                        @foreach (var doctor in department.DoctorName)
+                        {
+                            <li>@doctor</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        @foreach (var nurse in department.NurseName)
+                        {
+                            <li>@nurse</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 
 }
 
