@@ -1,4 +1,10 @@
+//<<<<<<< HEAD
 ﻿using Hospital_Mangment_System_BLL.Mapping;
+using Hospital_Mangment_System_BLL.Service.Abstraction;
+//=======
+using Hospital_Mangment_System_BLL.Mapping;
+using Hospital_Mangment_System_BLL.Service.Abstrsction;
+//>>>>>>> master
 using Hospital_Mangment_System_BLL.Service.Implementation;
 using Hospital_Mangment_System_BLL.View_model.patientVM;
 using Hospital_Mangment_System_DAL.DB;
@@ -31,6 +37,23 @@ namespace Hospital_Mangment_System_PL
 
             builder.Services.AddScoped<IPatientsRepo, PatientsRepo>();
             builder.Services.AddScoped<IPatientService, PatientService>();
+//<<<<<<< HEAD
+            
+            // Register Appointment Repository and Service
+            builder.Services.AddScoped<IappointmentRepo, appointmentRepo>(); // تسجيل الـ AppointmentRepo
+            builder.Services.AddScoped<IAppointmentService, AppointmentService>(); // تسجيل الـ AppointmentService
+
+//=======
+            //department service
+            builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+            //bill service
+            builder.Services.AddScoped<IbillsRepo,billsRepo>();
+            builder.Services.AddScoped<IBillService,BillService>();
+            //Nurse Service          
+            builder.Services.AddScoped<INurseRepo, NurseRepo>();
+            builder.Services.AddScoped<INurseService, NurseService>();
+//>>>>>>> master
 
             // maping service
             builder.Services.AddAutoMapper(x => x.AddProfile(new MyProfile()));

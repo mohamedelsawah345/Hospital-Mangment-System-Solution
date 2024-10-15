@@ -1,0 +1,18 @@
+﻿@using Hospital_Mangment_System_BLL.View_model.AppointmentVM
+
+
+
+
+@model List< GetAllAppointmentVM>
+
+
+@foreach (var item in Model)
+{
+
+    <h1>Id is @item.patient_id :Name is @item.Reason_Of_Visit </h1>
+
+}
+
+
+<h1>GetAllPatient</h1>
+

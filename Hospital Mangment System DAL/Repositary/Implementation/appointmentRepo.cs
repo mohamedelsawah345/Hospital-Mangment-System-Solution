@@ -1,6 +1,7 @@
 ﻿using Hospital_Mangment_System_DAL.DB;
 using Hospital_Mangment_System_DAL.Entites;
 using Hospital_Mangment_System_DAL.Repositary.Abstraction;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,11 +43,11 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
             {
 
                 var result = _DBcontext.appointments.Where(P => P.Appointment_Id == id).FirstOrDefault();  
-
+               
 
                 if (result != null)
                 {
-                    _DBcontext.Remove(result);
+                     result.IsDeleted = true;
                     _DBcontext.SaveChanges();
                     return true;
                 }

@@ -58,14 +58,6 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             return false;
         }
 
-        public bool Update(AddAppointmentVM appointmentVM)
-        {
-            throw new NotImplementedException();
-        }
-
-        GetAllAppointmentVM IAppointmentService.GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
