@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hospital_Mangment_System_BLL.View_model.patientVM
 {
-    public class GetAllPatientsVM
+    public class GetAllPatientssVM
     {
         public int Id { get; set; }
         public string Name { get; set; }

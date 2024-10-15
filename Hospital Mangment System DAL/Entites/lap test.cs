@@ -14,6 +14,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public string Test_name { get; set; }
         public int Dr_id { get; set; }
         public Doctor doctor { get; set; }
+        public bool? IsDeleted { get; set; }
         public int Patient_ID { get; set; }
         public Patient patient { get; set; }
     }

@@ -13,6 +13,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public int Equipment_Id { get; set; }
         public string Equip_name { get; set; }
         public DateTime Maintence_date { get; set; }
+        public bool? IsDeleted { get; set; }
         public int Dnum { get; set; }
         public Department Department { get; set; }
     }

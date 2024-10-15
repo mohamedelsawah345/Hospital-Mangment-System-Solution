@@ -1,0 +1,18 @@
+﻿@using Hospital_Mangment_System_BLL.View_model.DepartmentVM
+@{
+    ViewData["Title"] = "GetAllDepartments";
+}
+
+@model List< GetAllDepartmentsVM>
+
+
+@foreach (var item in Model)
+{
+
+    <h1>Id is @item.Dnum :Name is @item.Dname :Location is @item.Location </h1>
+
+}
+
+
+<h1>UpdateDepartment</h1>
+

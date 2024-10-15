@@ -36,6 +36,9 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Property<DateOnly>("Date_discharge")
                         .HasColumnType("date");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Patient_Id")
                         .HasColumnType("int");
 
@@ -59,6 +62,9 @@ namespace Hospital_Mangment_System_DAL.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Reason_Of_Visit")
                         .IsRequired()
@@ -112,11 +118,12 @@ namespace Hospital_Mangment_System_DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Dnum"));
 
-                    b.Property<int>("Dname")
-                        .HasColumnType("int");
+                    b.Property<string>("Dname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Dr_Id")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -149,6 +156,9 @@ namespace Hospital_Mangment_System_DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -174,6 +184,9 @@ namespace Hospital_Mangment_System_DAL.Migrations
 
                     b.Property<int>("Dr_id")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Patient_ID")
                         .HasColumnType("int");
@@ -209,6 +222,9 @@ namespace Hospital_Mangment_System_DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("Maintence_date")
                         .HasColumnType("datetime2");
 
@@ -230,13 +246,15 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Property<int>("Dnum")
                         .HasColumnType("int");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("phones")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("phones")
+                        .HasColumnType("bigint");
 
                     b.HasKey("NurseID");
 
@@ -267,11 +285,12 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Property<DateOnly>("birthday")
                         .HasColumnType("date");
 
-                    b.Property<int>("phone1")
-                        .HasColumnType("int");
+                    b.Property<string>("phone1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("phone2")
-                        .HasColumnType("int");
+                    b.Property<string>("phone2")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

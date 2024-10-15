@@ -1,6 +1,7 @@
 ﻿using Hospital_Mangment_System_DAL.DB;
 using Hospital_Mangment_System_DAL.Entites;
 using Hospital_Mangment_System_DAL.Repositary.Abstraction;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,52 +22,86 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
         public bool add(Patient patient)
         {
-            var result = _DBcontext.patients.Add(patient);
            
-
-            if (result!=null)
+           
+            try
             {
+                var result = _DBcontext.patients.Add(patient);
                 _DBcontext.SaveChanges();
-                return true;
+                    return true;
+                
+
             }
-            else
+            catch (Exception ex)
             {
+               
                 return false;
+               
             }
 
+         
         }
 
         public bool delete(int id)
         {
 
-          var result= _DBcontext.patients.Where(p=>p.Id==id).FirstOrDefault(); //don't forget frist or defualt 
-            
+          
 
-            if (result != null)
+
+            try
             {
-                _DBcontext.Remove(result);  
+                var result = _DBcontext.patients.Where(p => p.Id == id).FirstOrDefault(); //don't forget frist or defualt 
+
+                result.IsDeleted = true;
                 _DBcontext.SaveChanges();
                 return true;
+
+
             }
-            else
+            catch (Exception ex)
             {
+
                 return false;
+
             }
+
+           
 
 
         }
 
         public List<Patient> getAll()
         {
-        
-                return _DBcontext.patients.ToList();
+            try
+            {
+                return _DBcontext.patients.Where(p => p.IsDeleted != true).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding equipment: {ex.Message}");
+                return new List<Patient>();
+
+            }
 
         }
 
         public Patient getbyId(int id)
         {
-            return _DBcontext.patients.Where(p => p.Id == id).FirstOrDefault(); //don't forget frist or defualt 
 
+
+            try
+            {
+                return _DBcontext.patients.Where(p => p.Id == id).FirstOrDefault(); //don't forget frist or defualt 
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding equipment: {ex.Message}");
+                return new Patient();
+
+            }
 
         }
 
@@ -74,24 +109,24 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
           var result= _DBcontext.patients.Where(p=>p.Id== patient.Id).FirstOrDefault(); //don't forget frist or defualt 
 
-           
-
-            if (result != null)
+            try
             {
-               
+
                 result.phone1 = patient.phone1;
                 result.phone2 = patient.phone2;
-               
-               
-               
 
                 _DBcontext.SaveChanges();
                 return true;
+
             }
-            else
+            catch (Exception ex)
             {
                 return false;
+
             }
+
+
+            
         }
     }
 }
