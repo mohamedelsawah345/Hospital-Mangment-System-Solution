@@ -21,8 +21,4 @@
     <ProjectReference Include="..\Hospital Mangment System DAL\Hospital Mangment System DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="View model\BillsVM\" />
-  </ItemGroup>
-
 </Project>
