@@ -4,7 +4,6 @@ using Hospital_Mangment_System_BLL.View_model;
 using Hospital_Mangment_System_BLL.View_model.AppointmentVM;
 using Hospital_Mangment_System_BLL.View_model.BillVM;
 using Hospital_Mangment_System_BLL.View_model.DepartmentVM;
-using Hospital_Mangment_System_BLL.View_model.NurseVM;
 using Hospital_Mangment_System_BLL.View_model.patientVM;
 using Hospital_Mangment_System_DAL.Entites;
 
@@ -42,6 +41,28 @@ namespace Hospital_Mangment_System_BLL.Mapping
             CreateMap<UpdateNurseVM, Nurse>();
             CreateMap<Nurse, GetAllNursesVM>()
            .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.Dname));
+
+
+
+            CreateMap<CreateDoctorVM, Doctor>();
+            CreateMap<Doctor, GetDoctorByIdVM>(); 
+            CreateMap<Doctor, GetAllDoctorVM>();
+            CreateMap<UpdateDoctorVM, Doctor>();
+
+            CreateMap<Medical_equipment, GetEquipmentByIdVM>();
+            CreateMap<Medical_equipment, GetAllEquipmentVM>();
+            CreateMap<CreateEquipmentVM, Medical_equipment>();
+            CreateMap<UpdateEquipmentVM, Medical_equipment>();
+
+
+
+            CreateMap<Nurse, GetNurseByIdVM>();
+            CreateMap<Nurse, GetAllNursesVM>();
+            CreateMap<CreateNurseVM, Nurse>();
+            CreateMap<UpdateNurseVM, Nurse>();
+
+
+
 
         }
 
