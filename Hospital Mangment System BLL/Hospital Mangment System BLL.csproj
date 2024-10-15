@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="View model\BillsVM\**" />
+    <EmbeddedResource Remove="View model\BillsVM\**" />
+    <None Remove="View model\BillsVM\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
       <PrivateAssets>all</PrivateAssets>
@@ -19,10 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hospital Mangment System DAL\Hospital Mangment System DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="View model\BillsVM\" />
   </ItemGroup>
 
 </Project>
