@@ -1,6 +1,7 @@
 ﻿using Hospital_Mangment_System_DAL.DB;
 using Hospital_Mangment_System_DAL.Entites;
 using Hospital_Mangment_System_DAL.Repositary.Abstraction;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 {
@@ -46,7 +47,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
             }
         }
 
-        public List<Department> getAll() => _DBcontext.departments.ToList();
+        public List<Department> getAll() => _DBcontext.departments.Include(n=>n.Doctors).Include(n=>n.nurses).ToList();
 
 
         public Department getbyId(int Dnum)
