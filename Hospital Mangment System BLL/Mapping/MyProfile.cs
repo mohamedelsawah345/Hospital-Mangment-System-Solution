@@ -4,7 +4,10 @@ using Hospital_Mangment_System_BLL.View_model;
 using Hospital_Mangment_System_BLL.View_model.BillVM;
 using Hospital_Mangment_System_BLL.View_model.DepartmentVM;
 
+
+
 using Hospital_Mangment_System_BLL.View_model.DoctorVM;
+
 
 
 
@@ -42,6 +45,7 @@ namespace Hospital_Mangment_System_BLL.Mapping
 
 
 
+
             CreateMap<CreateDoctorVM, Doctor>();
             CreateMap<Doctor, GetDoctorByIdVM>(); 
             CreateMap<Doctor, GetAllDoctorVM>();
@@ -58,6 +62,7 @@ namespace Hospital_Mangment_System_BLL.Mapping
             CreateMap<Nurse, GetAllNursesVM>();
             CreateMap<CreateNurseVM, Nurse>();
             CreateMap<UpdateNurseVM, Nurse>();
+
 
 
 
