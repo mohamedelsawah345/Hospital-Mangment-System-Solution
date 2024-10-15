@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hospital_Mangment_System_BLL.View_model;
 using Hospital_Mangment_System_BLL.View_model.BillVM;
 using Hospital_Mangment_System_BLL.View_model.DepartmentVM;
 using Hospital_Mangment_System_BLL.View_model.patientVM;
@@ -26,6 +27,12 @@ namespace Hospital_Mangment_System_BLL.Mapping
             CreateMap<Bill, GetAllBillsVM>();
             CreateMap<CreateBillVM, Bill>();
             CreateMap<UpdateBillVM, Bill>();
+
+
+            CreateMap<Medical_equipment, GetEquipmentByIdVM>();
+            CreateMap<Medical_equipment, GetAllEquipmentVM>();
+            CreateMap<CreateEquipmentVM, Medical_equipment>();
+            CreateMap<UpdateEquipmentVM, Medical_equipment>();
 
 
 
