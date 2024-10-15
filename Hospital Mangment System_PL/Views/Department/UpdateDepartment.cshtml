@@ -1,0 +1,31 @@
+﻿@using Hospital_Mangment_System_BLL.View_model.DepartmentVM
+@model UpdateDepartmentVM
+@{
+    ViewData["Title"] = "UpdateDepartment";
+}
+
+<form asp-action="UpdateDepartment" asp-controller="department">
+
+    <div class="mb-3">
+        <label for="ID" class="form-label">ID</label>
+        <input asp-for=Dnum type="text" class="form-control" id="ID" placeholder="Enter ID">
+    </div>
+
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input asp-for=Dname type="text" class="form-control" id="Name" placeholder="Enter Name">
+    </div>
+
+
+    <div class="mb-3">
+        <label for="Location" class="form-label">Location</label>
+        <input asp-for=Location type="text" class="form-control" id="Location" placeholder="Enter Location">
+    </div>
+
+  
+
+    <button type="submit" class="btn btn-primary">Summit</button>
+
+
+
+</form>
