@@ -7,7 +7,7 @@ namespace Hospital_Mangment_System_PL.Controllers
 {
     public class DoctorController : Controller
     {
-        private readonly IDoctorService _doctorService;//خلي بالك انت بتعمل انستنس من الكلاس الانترفيس
+        private readonly IDoctorService _doctorService;
 
         public DoctorController(IDoctorService doctorService)
         {
@@ -18,69 +18,68 @@ namespace Hospital_Mangment_System_PL.Controllers
         {
             return View();
         }
-        public IActionResult GetAllDoctors()
+
+        public async Task<IActionResult> GetAllDoctors()
         {
-
-            var result = _doctorService.getAll();
-
-
+            var result = await _doctorService.GetAllAsync();
             return View(result);
-
         }
-        public IActionResult GetDoctorById()
+
+        public async Task<IActionResult> GetDoctorById(string id)
         {
-
-            var result = _doctorService.getbyId(5);
-
+            var result = await _doctorService.GetByIdAsync(id);
             return View(result);
-
         }
+
         [HttpGet]
         public IActionResult AddDoctor()
         {
-
-
             return View();
-
         }
+
         [HttpPost]
-        public IActionResult AddDoctort(CreateDoctorVM DoctorVM)
+        public async Task<IActionResult> AddDoctor(CreateDoctorVM doctorVM)
         {
+            if (ModelState.IsValid)
+            {
+                var result = await _doctorService.AddAsync(doctorVM);
+                if (result)
+                {
+                    return RedirectToAction("GetAllDoctors");
+                }
+                ModelState.AddModelError("", "Unable to add doctor. Please try again.");
+            }
 
-
-            _doctorService.add(DoctorVM);
-            return RedirectToAction("GetAllDoctors");
-            //return View();
-
+            return View(doctorVM);
         }
-        //comment test
 
-        public IActionResult DeleteDoctor(int id)
+        public async Task<IActionResult> DeleteDoctor(string id)
         {
-            _doctorService.delete(8);
-
+            await _doctorService.DeleteAsync(id);
             return RedirectToAction("GetAllDoctors");
         }
+
         [HttpGet]
-        public IActionResult UpdateDoctor()
+        public async Task<IActionResult> UpdateDoctor(string id)
         {
-
-            return View();
-
-
+            var doctor = await _doctorService.GetByIdAsync(id);
+            if (doctor == null)
+            {
+                return NotFound();
+            }
+            return View(doctor);
         }
 
         [HttpPost]
-        public IActionResult UpdateDoctor(UpdateDoctorVM DoctorVM)
+        public async Task<IActionResult> UpdateDoctor(UpdateDoctorVM doctorVM)
         {
-            _doctorService.update(DoctorVM);
-
-            return RedirectToAction("GetAllDoctors");
-
-
+            if (ModelState.IsValid)
+            {
+                await _doctorService.UpdateAsync(doctorVM);
+                return RedirectToAction("GetAllDoctors");
+            }
+            return View(doctorVM); 
         }
-
-
-
     }
+
 }

@@ -6,7 +6,7 @@ namespace Hospital_Mangment_System_PL.Controllers
 {
     public class PatientController : Controller
     {
-      private readonly  IPatientService _patientService;//خلي بالك انت بتعمل انستنس من الكلاس الانترفيس
+        private readonly IPatientService _patientService;
 
         public PatientController(IPatientService patientService)
         {
@@ -17,71 +17,62 @@ namespace Hospital_Mangment_System_PL.Controllers
         {
             return View();
         }
-        public IActionResult GetAllPatient()
+
+        public async Task<IActionResult> GetAllPatient()
         {
-
-           var result= _patientService.getAll();
-
-
+            var result = await _patientService.GetAllAsync(); 
             return View(result);
-
         }
-        public IActionResult GetPatientById(string id)
+
+        public async Task<IActionResult> GetPatientById(string id)
         {
-
-            var result = _patientService.getbyId(id);
-
+            var result = await _patientService.GetByIdAsync(id);
             return View(result);
-
         }
+
         [HttpGet]
         public IActionResult AddPatient()
         {
-
-
             return View();
-
-        }
-        [HttpPost]
-        public IActionResult AddPatient(CreatePatientVM patientVM)
-        {
-
-
-            _patientService.add(patientVM);
-          return  RedirectToAction("GetAllPatient");
-            //return View();
-
-        }
-        //comment test
-
-        public IActionResult DeletePatient(string id)
-        {
-            _patientService.delete(id);
-
-          return  RedirectToAction("GetAllPatient");
-        }
-        [HttpGet]
-        public IActionResult UpdatePatient()
-        {
-           
-            return View();
-
-
         }
 
         [HttpPost]
-        public IActionResult UpdatePatient(UpdatePatientVM patientvm)
+        public async Task<IActionResult> AddPatient(CreatePatientVM patientVM)
         {
-            _patientService.update(patientvm);
+            if (ModelState.IsValid) 
+            {
+                await _patientService.AddAsync(patientVM); 
+                return RedirectToAction("GetAllPatient");
+            }
+            return View(patientVM); 
+        }
 
+        public async Task<IActionResult> DeletePatient(string id)
+        {
+            await _patientService.DeleteAsync(id); 
             return RedirectToAction("GetAllPatient");
-
-
         }
 
+        [HttpGet]
+        public async Task<IActionResult> UpdatePatient(string id)
+        {
+            var patient = await _patientService.GetByIdAsync(id); 
+            if (patient == null)
+            {
+                return NotFound(); 
+            }
+            return View(patient);
+        }
 
-
-
-
+        [HttpPost]
+        public async Task<IActionResult> UpdatePatient(UpdatePatientVM patientVM)
+        {
+            if (ModelState.IsValid) 
+            {
+                await _patientService.UpdateAsync(patientVM); 
+                return RedirectToAction("GetAllPatient");
+            }
+            return View(patientVM); 
+        }
     }
 }

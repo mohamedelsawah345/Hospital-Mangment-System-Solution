@@ -15,69 +15,52 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 {
     public class DoctorService : IDoctorService
     {
-
         private readonly IDoctorRepo _DoctorRepo;
         private readonly IMapper _mapper;
 
-        public DoctorService(IDoctorRepo DoctorRepo, IMapper mapper) //Dependsncy InJection 
+        public DoctorService(IDoctorRepo DoctorRepo, IMapper mapper) // Dependency Injection 
         {
             _DoctorRepo = DoctorRepo;
             _mapper = mapper;
         }
 
-        public bool add(CreateDoctorVM doctorvm)
+        public async Task<bool> AddAsync(CreateDoctorVM doctorvm)
         {
             if (doctorvm != null)
             {
-
                 var result = _mapper.Map<Doctor>(doctorvm);
-
-                _DoctorRepo.add(result);
-                return true;
+                return await _DoctorRepo.AddAsync(result);
             }
-            else return false;
-
+            return false;
         }
 
-        public bool delete(int id)
+        public async Task<bool> DeleteAsync(string id)
         {
-            if (_DoctorRepo.delete(id))
-            {
-                return true;
-            }
-            else return false;
+            return await _DoctorRepo.DeleteAsync(id);
         }
 
-        public List<GetAllDoctorVM> getAll()
+        public async Task<List<GetAllDoctorVM>> GetAllAsync()
         {
-
-            var result = _DoctorRepo.getAll().ToList();
+            var result = await _DoctorRepo.GetAllAsync(); 
             var newData = _mapper.Map<List<GetAllDoctorVM>>(result);
-
             return newData;
-
         }
 
-        public GetDoctorByIdVM getbyId(int id)
+        public async Task<GetDoctorByIdVM> GetByIdAsync(string id)
         {
-            var result = _DoctorRepo.getbyId(id);
-            var newdata = _mapper.Map<GetDoctorByIdVM>(result);
-
-            return newdata;
+            var result = await _DoctorRepo.GetByIdAsync(id); 
+            var newData = _mapper.Map<GetDoctorByIdVM>(result);
+            return newData;
         }
 
-        public bool update(UpdateDoctorVM doctorvm)
+        public async Task<bool> UpdateAsync(UpdateDoctorVM doctorvm)
         {
-
             if (doctorvm != null)
             {
-
                 var result = _mapper.Map<Doctor>(doctorvm);
-
-                _DoctorRepo.update(result);
-                return true;
+                return await _DoctorRepo.UpdateAsync(result);
             }
-            else return false;
+            return false;
         }
     }
 }

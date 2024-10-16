@@ -1,133 +1,123 @@
 ﻿using Hospital_Mangment_System_DAL.DB;
 using Hospital_Mangment_System_DAL.Entites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+using Hospital_Mangment_System_DAL.Repositary.Abstraction;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 {
-    public  class DoctorRepo
+    public class DoctorRepo : IDoctorRepo
     {
-
         private readonly ApplicationDBcontext _DBcontext;
-        public DoctorRepo(ApplicationDBcontext DBcontext)
+
+        public DoctorRepo(ApplicationDBcontext context)
         {
-            _DBcontext = DBcontext;
+            _DBcontext = context;
         }
 
-
-
-        public bool add(Doctor doctor)
+        //  add method
+        public async Task<bool> AddAsync(Doctor doctor)
         {
-
-
             try
             {
-                var result = _DBcontext.Doctors.Add(doctor);
-                _DBcontext.SaveChanges();
+                await _DBcontext.Doctors.AddAsync(doctor); 
+                await _DBcontext.SaveChangesAsync(); 
                 return true;
-
-
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine($"Error adding doctor: {ex.Message}"); 
                 return false;
-
             }
-
-
         }
 
-        public bool delete(string id)
+        //  delete method
+        public async Task<bool> DeleteAsync(string id)
         {
-
-
-
-
             try
             {
-                var result = _DBcontext.Doctors.Where(p =>  p.Id == id).FirstOrDefault(); //don't forget frist or defualt 
+                var result = await _DBcontext.Doctors
+                    .Where(d => d.ApplicationUserId == id)
+                    .FirstOrDefaultAsync(); 
 
-                result.IsDeleted = true;
-                _DBcontext.SaveChanges();
+                if (result == null)
+                {
+                    return false; 
+                }
+
+                result.IsDeleted = true; 
+                await _DBcontext.SaveChangesAsync(); 
                 return true;
-
-
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine($"Error deleting doctor: {ex.Message}"); 
                 return false;
-
             }
         }
 
-        public List<Doctor> getAll()
+        //  get all method
+        public async Task<List<Doctor>> GetAllAsync()
         {
             try
             {
-                return _DBcontext.Doctors.Where(p => p.IsDeleted != true).ToList();
-
+                return await _DBcontext.Doctors
+                    .Where(p => p.IsDeleted != true)
+                    .ToListAsync(); 
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding equipment: {ex.Message}");
-                return new List<Doctor>();
-
+                Console.WriteLine($"Error fetching doctors: {ex.Message}"); 
+                return new List<Doctor>(); 
             }
-
         }
 
-        public Doctor getbyId(string id)
+        //  get by ID method
+        public async Task<Doctor> GetByIdAsync(string id)
         {
-
-
             try
             {
-                return _DBcontext.Doctors.Where(p => p.Id== id).FirstOrDefault(); //don't forget frist or defualt 
-
-
+                return await _DBcontext.Doctors
+                    .Where(p => p.ApplicationUserId == id) 
+                    .FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding equipment: {ex.Message}");
-                return new Doctor();
-
+                Console.WriteLine($"Error fetching doctor by ID: {ex.Message}"); 
+                return null; 
             }
-
         }
 
-        public bool update(Doctor doctor)
+        //  update method
+        public async Task<bool> UpdateAsync(Doctor doctor)
         {
-            var result = _DBcontext.Doctors.Where(p => p.Id == doctor.Id).FirstOrDefault(); //don't forget frist or defualt 
-
             try
             {
+                var existingDoctor = await _DBcontext.Doctors
+                    .Where(p => p.ApplicationUserId == doctor.ApplicationUserId) 
+                    .FirstOrDefaultAsync(); 
 
-                result.Phone = doctor.Phone;
-               
+                if (existingDoctor == null)
+                {
+                    return false; 
+                }
 
-                _DBcontext.SaveChanges();
+                // Update the properties
+                existingDoctor.Phone = doctor.Phone;
+                existingDoctor.Speciality = doctor.Speciality; 
+
+                await _DBcontext.SaveChangesAsync(); 
                 return true;
-
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error updating doctor: {ex.Message}"); 
                 return false;
-
             }
-
-
-
         }
     }
-
-
-
-
 }
+
+
+
+
 

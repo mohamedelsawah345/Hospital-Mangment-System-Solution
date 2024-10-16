@@ -8,82 +8,101 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
     public class NurseRepo : INurseRepo
     {
         private readonly ApplicationDBcontext _DBcontext;
+
         public NurseRepo(ApplicationDBcontext DBcontext)
         {
             _DBcontext = DBcontext;
         }
 
-
-        public bool add(Nurse nurse)
+        // Add new Nurse
+        public async Task<bool> AddAsync(Nurse nurse)
         {
-            var result = _DBcontext.nurses.Add(nurse);
-
-
-            if (result != null)
+            try
             {
-                _DBcontext.SaveChanges();
-
-                return true;
-            }
-            else
-            {
+                var applicationUser = await _DBcontext.Users.FindAsync(nurse.ApplicationUserId);
+                if (applicationUser != null)
+                {
+                    await _DBcontext.nurses.AddAsync(nurse);
+                    await _DBcontext.SaveChangesAsync();
+                    return true;
+                }
                 return false;
             }
-
-        }
-
-        public bool delete(string NurseID)
-        {
-            var result = _DBcontext.nurses.Where(p => p.Id == NurseID).FirstOrDefault(); //don't forget first or default 
-            if (result != null)
+            catch (Exception ex)
             {
-                result.IsDeleted = !result.IsDeleted;
-                _DBcontext.SaveChanges();
-                return true;
-            }
-            else
-            {
+                Console.WriteLine($"Error adding nurse: {ex.Message}");
                 return false;
             }
         }
 
-        public List<Nurse> getAll()                  //need to add department name 
+        // Delete Nurse by ID
+        public async Task<bool> DeleteAsync(string nurseId)
         {
-
-            var result = _DBcontext.nurses.Include(n => n.Department).ToList();
-            return result;
-        }
-
-
-        public Nurse getbyId(string NurseID)
-        {
-            return _DBcontext.nurses.Include(n => n.Department).Where(p => p.Id == NurseID).FirstOrDefault(); //don't forget first or default 
-
-
-        }
-
-        public bool update(Nurse nurse)
-        {
-            var result = _DBcontext.nurses.Where(p => p.Id == nurse.Id).FirstOrDefault(); //don't forget first or default 
-            var DepartmentName = from Nurse in _DBcontext.nurses
-                                 join Department in _DBcontext.departments
-                                 on nurse.Dnum equals Department.Dnum
-                                 select new
-                                 {
-                                     NurseName = nurse.UserName,
-                                     DepartmentName = Department.Dname
-                                 };
-            if (result != null)
+            try
             {
-                result.UserName = nurse.UserName;
-                result.phones = nurse.phones;
-
-
-                _DBcontext.SaveChanges();
-                return true;
+                var nurse = await _DBcontext.nurses.FirstOrDefaultAsync(n => n.ApplicationUserId == nurseId);
+                if (nurse != null)
+                {
+                    nurse.IsDeleted = true;
+                    await _DBcontext.SaveChangesAsync();
+                    return true;
+                }
+                return false;
             }
-            else
+            catch (Exception ex)
             {
+                Console.WriteLine($"Error deleting nurse: {ex.Message}");
+                return false;
+            }
+        }
+        // Get all Nurses
+        public async Task<List<Nurse>> GetAllAsync()
+        {
+            try
+            {
+                return await _DBcontext.nurses.Include(n => n.Department).Where(p => !p.IsDeleted).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching nurses: {ex.Message}");
+                return new List<Nurse>();
+            }
+        }
+
+        // Get Nurse by ID
+        public async Task<Nurse> GetByIdAsync(string nurseId)
+        {
+            try
+            {
+                return await _DBcontext.nurses.Include(n => n.Department)
+                                              .FirstOrDefaultAsync(n => n.ApplicationUserId == nurseId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching nurse by ID: {ex.Message}");
+                return null;
+            }
+        }
+
+        // Update Nurse
+        public async Task<bool> UpdateAsync(Nurse nurse)
+        {
+            try
+            {
+                // Fetch the existing nurse from the database using ApplicationUserId
+                var existingNurse = await _DBcontext.nurses.FirstOrDefaultAsync(n => n.ApplicationUserId == nurse.ApplicationUserId);
+                if (existingNurse != null)
+                {
+                    existingNurse.Phone = nurse.Phone;
+                    existingNurse.Dnum = nurse.Dnum;              
+                    await _DBcontext.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating nurse: {ex.Message}");
                 return false;
             }
         }

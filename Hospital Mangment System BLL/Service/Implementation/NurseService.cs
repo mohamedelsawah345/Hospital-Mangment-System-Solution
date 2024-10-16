@@ -10,74 +10,55 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 {
     public class NurseService : INurseService
     {
-        private readonly INurseRepo _NurseRepo;
+        private readonly INurseRepo _nurseRepo;
         private readonly IMapper _mapper;
-        public NurseService(INurseRepo nurseRepo, IMapper mapper)
+
+        public NurseService(INurseRepo nurseRepo, IMapper mapper) // Dependency Injection
         {
-            _NurseRepo = nurseRepo;
+            _nurseRepo = nurseRepo;
             _mapper = mapper;
         }
 
-        public bool add(CreateNurseVM Nursevm)
+        // Add new Nurse
+        public async Task<bool> AddAsync(CreateNurseVM nursevm)
         {
-            if (Nursevm != null)
-            {
-
-                var result = _mapper.Map<Nurse>(Nursevm);
-
-                _NurseRepo.add(result);
-                return true;
-            }
-            else return false;
-
-
-        }
-
-        public bool delete(string NurseID)
-        {
-
-            if (_NurseRepo.delete(NurseID))
-            {
-                return true;
-            }
-            else return false;
-
-        }
-
-        public List<GetAllNursesVM> getAll()
-        {
-
-            var result = _NurseRepo.getAll().ToList();
-            var newData = _mapper.Map<List<GetAllNursesVM>>(result);
-
-            return newData;
-
-        }
-
-        public GetNurseByIdVM getbyId(string NurseID)
-        {
-            var result = _NurseRepo.getbyId(NurseID);
-            var newdata = _mapper.Map<GetNurseByIdVM>(result);
-
-            return newdata;
-        }
-
-        public bool update(UpdateNurseVM nursevm)
-        {
-
-
-
             if (nursevm != null)
             {
-
                 var result = _mapper.Map<Nurse>(nursevm);
-
-                _NurseRepo.update(result);
-                return true;
+                return await _nurseRepo.AddAsync(result);
             }
-            else return false;
+            return false;
+        }
 
+        // Delete Nurse by ID
+        public async Task<bool> DeleteAsync(string nurseId)
+        {
+            return await _nurseRepo.DeleteAsync(nurseId);
+        }
 
+        // Get all Nurses
+        public async Task<List<GetAllNursesVM>> GetAllAsync()
+        {
+            var result = await _nurseRepo.GetAllAsync();
+            return _mapper.Map<List<GetAllNursesVM>>(result);
+        }
+
+        // Get Nurse by ID
+        public async Task<GetNurseByIdVM> GetByIdAsync(string nurseId)
+        {
+            var result = await _nurseRepo.GetByIdAsync(nurseId);
+            return _mapper.Map<GetNurseByIdVM>(result);
+        }
+
+        // Update Nurse
+        public async Task<bool> UpdateAsync(UpdateNurseVM nursevm)
+        {
+            if (nursevm != null)
+            {
+                var result = _mapper.Map<Nurse>(nursevm);
+                return await _nurseRepo.UpdateAsync(result);
+            }
+            return false;
         }
     }
 }

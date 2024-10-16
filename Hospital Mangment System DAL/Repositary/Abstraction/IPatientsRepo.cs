@@ -9,14 +9,11 @@ namespace Hospital_Mangment_System_DAL.Repositary.Abstraction
 {
     public interface IPatientsRepo
     {
-        public bool add(Patient patient);
-        public bool delete(string id);
-
-        public bool update(Patient patient);
-
-        public Patient getbyId(string id);
-
-        public List<Patient> getAll();
+        Task<bool> AddAsync(Patient patient);
+        Task<bool> DeleteAsync(string id);
+        Task<List<Patient>> GetAllAsync();
+        Task<Patient> GetByIdAsync(string id);
+        Task<bool> UpdateAsync(Patient patient);
 
     }
 }

@@ -1,14 +1,13 @@
-﻿using Hospital_Mangment_System_BLL.View_model.DepartmentVM;
-using Hospital_Mangment_System_BLL.View_model.NurseVM;
+﻿using Hospital_Mangment_System_BLL.View_model.NurseVM;
 
 namespace Hospital_Mangment_System_BLL.Service.Abstrsction
 {
     public interface INurseService
     {
-        public bool add(CreateNurseVM department);
-        public bool delete(string NurseID);
-        public bool update(UpdateNurseVM department);
-        public GetNurseByIdVM getbyId(string NurseID);
-        public List<GetAllNursesVM> getAll();
+        Task<bool> AddAsync(CreateNurseVM nursevm);
+        Task<bool> DeleteAsync(string nurseId);
+        Task<List<GetAllNursesVM>> GetAllAsync();
+        Task<GetNurseByIdVM> GetByIdAsync(string nurseId);
+        Task<bool> UpdateAsync(UpdateNurseVM nursevm);
     }
 }
