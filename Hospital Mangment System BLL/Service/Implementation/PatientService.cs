@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Hospital_Mangment_System_DAL.DB;
 using Hospital_Mangment_System_DAL.Repositary.Abstraction;
 using AutoMapper;
+using Hospital_Mangment_System_BLL.Helper;
 
 namespace Hospital_Mangment_System_BLL.Service.Implementation
 {
@@ -30,6 +31,10 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             {
                
                 var result=_mapper.Map<Patient>(patientvm);
+                if (patientvm.Image != null)
+                {
+                    result.Imagepath = Upload.UploadFile("Profile", patientvm.Image);
+                }
 
                 _patientsRepo.add(result);
                 return true;
@@ -75,8 +80,15 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 
             if (patientvm != null)
             {
-
                 var result = _mapper.Map<Patient>(patientvm);
+                if (patientvm.Image != null)
+                {
+                    result.Imagepath = Upload.UploadFile("Profile", patientvm.Image);
+                }
+
+                
+               
+
 
                 _patientsRepo.update(result);
                 return true;

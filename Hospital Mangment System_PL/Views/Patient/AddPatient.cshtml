@@ -7,7 +7,7 @@
 }
 
 
-<form asp-action="AddPatient" asp-controller="patient">
+<form asp-action="AddPatient" asp-controller="patient" enctype="multipart/form-data">
     
 
     <div class="mb-3">
@@ -42,6 +42,10 @@
     <div class="mb-3">
         <label for="Gender" class="form-label">Gender</label>
         <input asp-for=Gender type="text" class="form-control" id="Gender" placeholder="Enter Gender">
+    </div>
+    <div class="mb-3">
+        <label for="Image" class="form-label">Image</label>
+        <input asp-for=Image type="file" class="form-control" id="Image" placeholder="Enter Image">
     </div>
     <button  type="submit" class="btn btn-primary">Summit</button>
 

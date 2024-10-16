@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hospital_Mangment_System_BLL.Helper;
 using Hospital_Mangment_System_BLL.Service.Abstrsction;
 using Hospital_Mangment_System_BLL.View_model.DepartmentVM;
 using Hospital_Mangment_System_BLL.View_model.NurseVM;
@@ -24,6 +25,10 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             {
 
                 var result = _mapper.Map<Nurse>(Nursevm);
+                if (Nursevm.Image != null)
+                {
+                    result.Imagepath = Upload.UploadFile("Profile", Nursevm.Image);
+                }
 
                 _NurseRepo.add(result);
                 return true;
@@ -71,6 +76,10 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             {
 
                 var result = _mapper.Map<Nurse>(nursevm);
+                if (nursevm.Image != null)
+                {
+                    result.Imagepath = Upload.UploadFile("Profile", nursevm.Image);
+                }
 
                 _NurseRepo.update(result);
                 return true;

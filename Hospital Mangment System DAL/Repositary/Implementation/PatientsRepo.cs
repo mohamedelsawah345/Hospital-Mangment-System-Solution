@@ -114,6 +114,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
                 result.phone1 = patient.phone1;
                 result.phone2 = patient.phone2;
+                result.Imagepath = patient.Imagepath;
 
                 _DBcontext.SaveChanges();
                 return true;

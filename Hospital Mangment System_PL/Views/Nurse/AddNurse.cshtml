@@ -7,7 +7,7 @@
 }
 
 
-<form asp-action="AddNurse" asp-controller="nurse">
+<form asp-action="AddNurse" asp-controller="nurse" enctype="multipart/form-data">
 
 
     <div class="mb-3">
@@ -22,6 +22,10 @@
     <div class="mb-3">
         <label for="Dnum" class="form-label">Department</label>
         <input asp-for=Dnum type="text" class="form-control" id="Dnum" placeholder="Enter Department">
+    </div>
+    <div class="mb-3">
+        <label for="Image" class="form-label">Image</label>
+        <input asp-for=Image type="file" class="form-control" id="Dnum" placeholder="Enter Image">
     </div>
 
 

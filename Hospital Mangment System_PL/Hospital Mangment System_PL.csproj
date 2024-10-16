@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Hospital Mangment System BLL\Hospital Mangment System BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Profile\" />
+  </ItemGroup>
+
 </Project>
