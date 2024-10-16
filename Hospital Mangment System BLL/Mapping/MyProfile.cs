@@ -11,7 +11,7 @@ using Hospital_Mangment_System_DAL.Entites;
 
 namespace Hospital_Mangment_System_BLL.Mapping
 {
-    public class MyProfile :Profile //profile exist in AutoMapper
+    public class MyProfile : Profile //profile exist in AutoMapper
     {
         public MyProfile()
         {
@@ -27,9 +27,13 @@ namespace Hospital_Mangment_System_BLL.Mapping
 
 
             CreateMap<CreateDepartmentVM, Department>();
-            CreateMap<Department, GetDepartmentByIdVM>(); 
-            CreateMap<Department, GetAllDepartmentsVM>();
+            CreateMap<Department, GetDepartmentByIdVM>()
+            .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctors.Select(d => d.DrName)))
+            .ForMember(dest => dest.NurseName, opt => opt.MapFrom(src => src.nurses.Select(n => n.Name)));
             CreateMap<UpdateDepartmentVM, Department>();
+            CreateMap<Department, GetAllDepartmentsVM>()
+            .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctors.Select(d => d.DrName)))
+            .ForMember(dest => dest.NurseName, opt => opt.MapFrom(src => src.nurses.Select(n => n.Name)));
 
 
             CreateMap<Bill, GetBillByIdVM>();
@@ -39,7 +43,8 @@ namespace Hospital_Mangment_System_BLL.Mapping
 
 
             CreateMap<CreateNurseVM, Nurse>();
-            CreateMap<Nurse, GetNurseByIdVM>();
+            CreateMap<Nurse, GetNurseByIdVM>()
+                .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.Dname));
             CreateMap<UpdateNurseVM, Nurse>();
             CreateMap<Nurse, GetAllNursesVM>()
            .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.Dname));
@@ -47,7 +52,7 @@ namespace Hospital_Mangment_System_BLL.Mapping
 
 
             CreateMap<CreateDoctorVM, Doctor>();
-            CreateMap<Doctor, GetDoctorByIdVM>(); 
+            CreateMap<Doctor, GetDoctorByIdVM>();
             CreateMap<Doctor, GetAllDoctorVM>();
             CreateMap<UpdateDoctorVM, Doctor>();
 
