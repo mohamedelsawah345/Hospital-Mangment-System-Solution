@@ -16,6 +16,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public long phones { get; set; }
         public bool? IsDeleted { get; set; }
         public int Dnum { get; set; }
+        public string Imagepath { get; set; }
         public Department? Department { get; set; }
 
     }

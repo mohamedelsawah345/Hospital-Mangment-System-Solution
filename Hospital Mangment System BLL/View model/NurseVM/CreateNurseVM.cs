@@ -1,4 +1,5 @@
 ﻿using Hospital_Mangment_System_DAL.Entites;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Hospital_Mangment_System_BLL.View_model.NurseVM
         public string Name { get; set; }
         public long phones { get; set; }
         public int Dnum { get; set; }
+        public string? Imagepath { get; set; }
+        public IFormFile Image { get; set; }
         public Department? Department { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Hospital_Mangment_System_DAL.Entites;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +19,8 @@ namespace Hospital_Mangment_System_BLL.View_model
 
         [Required]
         public int Dnum { get; set; }
-
+        public string Imagepath { get; set; }
+        public IFormFile Image { get; set; }
         // Optionally include Department details if needed
         public Department? Department { get; set; }
 
