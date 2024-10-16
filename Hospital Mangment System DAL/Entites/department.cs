@@ -11,7 +11,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public string Dname { get; set; }
         public string Location { get; set; }
         public bool? IsDeleted { get; set; }
-        public int? ManagerId { get; set; }
+        public string? ManagerId { get; set; }
 
         // Navigation property - The doctor managing this department
         [ForeignKey("ManagerId")]

@@ -11,18 +11,24 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 {
     public class NurseService : INurseService
     {
-        private readonly INurseRepo _NurseRepo;
+        private readonly INurseRepo _nurseRepo;
         private readonly IMapper _mapper;
-        public NurseService(INurseRepo nurseRepo, IMapper mapper)
+
+        public NurseService(INurseRepo nurseRepo, IMapper mapper) // Dependency Injection
         {
-            _NurseRepo = nurseRepo;
+            _nurseRepo = nurseRepo;
             _mapper = mapper;
         }
 
-        public bool add(CreateNurseVM Nursevm)
+        // Add new Nurse
+        public async Task<bool> AddAsync(CreateNurseVM nursevm)
         {
-            if (Nursevm != null)
+            if (nursevm != null)
             {
+
+                var result = _mapper.Map<Nurse>(nursevm);
+                return await _nurseRepo.AddAsync(result);
+
 
                 var result = _mapper.Map<Nurse>(Nursevm);
                 if (Nursevm.Image != null)
@@ -32,50 +38,40 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 
                 _NurseRepo.add(result);
                 return true;
+
             }
-            else return false;
-
-
+            return false;
         }
 
-        public bool delete(int NurseID)
+        // Delete Nurse by ID
+        public async Task<bool> DeleteAsync(string nurseId)
         {
-
-            if (_NurseRepo.delete(NurseID))
-            {
-                return true;
-            }
-            else return false;
-
+            return await _nurseRepo.DeleteAsync(nurseId);
         }
 
-        public List<GetAllNursesVM> getAll()
+        // Get all Nurses
+        public async Task<List<GetAllNursesVM>> GetAllAsync()
         {
-
-            var result = _NurseRepo.getAll().ToList();
-            var newData = _mapper.Map<List<GetAllNursesVM>>(result);
-
-            return newData;
-
+            var result = await _nurseRepo.GetAllAsync();
+            return _mapper.Map<List<GetAllNursesVM>>(result);
         }
 
-        public GetNurseByIdVM getbyId(int NurseID)
+        // Get Nurse by ID
+        public async Task<GetNurseByIdVM> GetByIdAsync(string nurseId)
         {
-            var result = _NurseRepo.getbyId(NurseID);
-            var newdata = _mapper.Map<GetNurseByIdVM>(result);
-
-            return newdata;
+            var result = await _nurseRepo.GetByIdAsync(nurseId);
+            return _mapper.Map<GetNurseByIdVM>(result);
         }
 
-        public bool update(UpdateNurseVM nursevm)
+        // Update Nurse
+        public async Task<bool> UpdateAsync(UpdateNurseVM nursevm)
         {
-
-
-
             if (nursevm != null)
             {
-
                 var result = _mapper.Map<Nurse>(nursevm);
+
+                return await _nurseRepo.UpdateAsync(result);
+
                 if (nursevm.Image != null)
                 {
                     result.Imagepath = Upload.UploadFile("Profile", nursevm.Image);
@@ -83,10 +79,9 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 
                 _NurseRepo.update(result);
                 return true;
+
             }
-            else return false;
-
-
+            return false;
         }
     }
 }

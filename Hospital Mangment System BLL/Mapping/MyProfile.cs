@@ -28,12 +28,12 @@ namespace Hospital_Mangment_System_BLL.Mapping
 
             CreateMap<CreateDepartmentVM, Department>();
             CreateMap<Department, GetDepartmentByIdVM>()
-            .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctors.Select(d => d.DrName)))
-            .ForMember(dest => dest.NurseName, opt => opt.MapFrom(src => src.nurses.Select(n => n.Name)));
+            .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctors.Select(d => d.UserName)))
+            .ForMember(dest => dest.NurseName, opt => opt.MapFrom(src => src.nurses.Select(n => n.UserName)));
             CreateMap<UpdateDepartmentVM, Department>();
             CreateMap<Department, GetAllDepartmentsVM>()
-            .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctors.Select(d => d.DrName)))
-            .ForMember(dest => dest.NurseName, opt => opt.MapFrom(src => src.nurses.Select(n => n.Name)));
+            .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctors.Select(d => d.UserName)))
+            .ForMember(dest => dest.NurseName, opt => opt.MapFrom(src => src.nurses.Select(n => n.UserName)));
 
 
             CreateMap<Bill, GetBillByIdVM>();

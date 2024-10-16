@@ -9,13 +9,10 @@ namespace Hospital_Mangment_System_BLL.View_model.patientVM
 {
     public interface IPatientService
     {
-        public bool add(CreatePatientVM patient);
-        public bool delete(int id);
-
-        public bool update(UpdatePatientVM patient);
-
-        public GetPatientByIdVM getbyId(int id);
-
-        public List<GetAllPatientssVM> getAll();
+        Task< bool> AddAsync(CreatePatientVM patient);
+        Task< bool> DeleteAsync(string id);
+        Task< bool> UpdateAsync(UpdatePatientVM patient);
+        Task< GetPatientByIdVM> GetByIdAsync(string id);
+        Task< List<GetAllPatientssVM>> GetAllAsync();
     }
 }

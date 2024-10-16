@@ -1,6 +1,7 @@
 ﻿using Hospital_Mangment_System_DAL.DB;
 using Hospital_Mangment_System_DAL.Entites;
 using Hospital_Mangment_System_DAL.Repositary.Abstraction;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -13,104 +14,88 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
     public class PatientsRepo : IPatientsRepo
     {
         private readonly ApplicationDBcontext _DBcontext;
+
         public PatientsRepo(ApplicationDBcontext DBcontext)
         {
             _DBcontext = DBcontext;
         }
 
-
-
-        public bool add(Patient patient)
+        public async Task<bool> AddAsync(Patient patient)
         {
-           
-           
             try
             {
-                var result = _DBcontext.patients.Add(patient);
-                _DBcontext.SaveChanges();
-                    return true;
-                
-
-            }
-            catch (Exception ex)
-            {
-               
-                return false;
-               
-            }
-
-         
-        }
-
-        public bool delete(int id)
-        {
-
-          
-
-
-            try
-            {
-                var result = _DBcontext.patients.Where(p => p.Id == id).FirstOrDefault(); //don't forget frist or defualt 
-
-                result.IsDeleted = true;
-                _DBcontext.SaveChanges();
+                await _DBcontext.patients.AddAsync(patient);
+                await _DBcontext.SaveChangesAsync();
                 return true;
-
-
             }
             catch (Exception ex)
             {
-
+                // Log the exception (optional)
                 return false;
-
             }
-
-           
-
-
         }
 
-        public List<Patient> getAll()
+        public async Task<bool> DeleteAsync(string id)
         {
             try
             {
-                return _DBcontext.patients.Where(p => p.IsDeleted != true).ToList();
+                var result = await _DBcontext.patients.Where(d => d.ApplicationUserId == id).FirstOrDefaultAsync();
 
+                if (result != null)
+                {
+                    result.IsDeleted = true;
+                    await _DBcontext.SaveChangesAsync();
+                    return true;
+                }
+                return false; // Patient not found
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding equipment: {ex.Message}");
+                // Log the exception (optional)
+                return false;
+            }
+        }
+
+        public async Task<List<Patient>> GetAllAsync()
+        {
+            try
+            {
+                return await _DBcontext.patients.Where(p => p.IsDeleted != true).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (optional)
                 return new List<Patient>();
-
             }
-
         }
 
-        public Patient getbyId(int id)
+        public async Task<Patient> GetByIdAsync(string id)
         {
-
-
             try
             {
-                return _DBcontext.patients.Where(p => p.Id == id).FirstOrDefault(); //don't forget frist or defualt 
-
-
+                return await _DBcontext.patients.Where(d => d.ApplicationUserId == id).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding equipment: {ex.Message}");
+                // Log the exception (optional)
                 return new Patient();
-
             }
-
         }
 
-        public bool update(Patient patient)
+        public async Task<bool> UpdateAsync(Patient patient)
         {
-          var result= _DBcontext.patients.Where(p=>p.Id== patient.Id).FirstOrDefault(); //don't forget frist or defualt 
-
             try
             {
+                var result = await _DBcontext.patients.Where(d => d.ApplicationUserId == patient.ApplicationUserId).FirstOrDefaultAsync();
+
+
+                if (result != null)
+                {
+                    result.Phone = patient.Phone;
+                    await _DBcontext.SaveChangesAsync();
+                    return true;
+                }
+                return false; // Patient not found
 
                 result.phone1 = patient.phone1;
                 result.phone2 = patient.phone2;
@@ -119,15 +104,13 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
                 _DBcontext.SaveChanges();
                 return true;
 
+
             }
             catch (Exception ex)
             {
+                // Log the exception (optional)
                 return false;
-
             }
-
-
-            
         }
     }
 }

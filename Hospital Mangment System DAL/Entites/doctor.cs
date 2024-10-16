@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hospital_Mangment_System_DAL.DB;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,13 +9,10 @@ using System.Threading.Tasks;
 
 namespace Hospital_Mangment_System_DAL.Entites
 {
-    public class Doctor
+    public class Doctor:ApplicationUser
     {
-        [Key]
-        public int DrId { get; set; }
 
-        [Required]
-        public string DrName { get; set; }
+
 
         public string Speciality { get; set; }
 

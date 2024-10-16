@@ -4,6 +4,7 @@ using Hospital_Mangment_System_DAL.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital_Mangment_System_DAL.Migrations
 {
     [DbContext(typeof(ApplicationDBcontext))]
-    partial class ApplicationDBcontextModelSnapshot : ModelSnapshot
+    [Migration("20241016132917_Adding_Identity")]
+    partial class Adding_Identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,46 +212,6 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.ToTable("departments");
                 });
 
-
-
-            modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Doctor", b =>
-                {
-                    b.Property<int>("DrId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DrId"));
-
-                    b.Property<int>("Dnum")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DrName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Imagepath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Speciality")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DrId");
-
-                    b.HasIndex("Dnum");
-
-                    b.ToTable("Doctors");
-                });
-
-
             modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Lap_test", b =>
                 {
                     b.Property<int>("Test_ID")
@@ -296,10 +259,6 @@ namespace Hospital_Mangment_System_DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Equip_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Imagepath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -435,10 +394,6 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Property<int>("Dnum")
                         .HasColumnType("int");
 
-                    b.Property<string>("Imagepath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -489,9 +444,6 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
-
-                    b.Property<string>("Imagepath")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");

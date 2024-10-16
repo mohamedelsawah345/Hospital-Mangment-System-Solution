@@ -25,8 +25,12 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             _mapper = mapper;
         }
 
-        public bool add(CreatePatientVM patientvm)
+        public async Task<bool> AddAsync(CreatePatientVM patientVm)
         {
+
+            var patient = _mapper.Map<Patient>(patientVm);
+            return await _patientsRepo.AddAsync(patient);
+
             if (patientvm != null)
             {
                
@@ -42,39 +46,32 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             else return false;
           
 
-        }
-
-        public bool delete(int id)
-        {
-
-            if (_patientsRepo.delete(id))
-            {
-                return true;
-            }
-            else return false;            
-           
-        }
-
-        public List<GetAllPatientssVM> getAll()
-        {
-
-            var result = _patientsRepo.getAll().ToList();
-            var newData= _mapper.Map< List<GetAllPatientssVM>>(result);
-
-            return newData;
 
         }
 
-        public GetPatientByIdVM getbyId(int id)
+        public async Task<bool> DeleteAsync(string id)
         {
-            var result = _patientsRepo.getbyId(id);
-            var newdata= _mapper.Map<GetPatientByIdVM>( result);
-
-            return newdata;
+            return await _patientsRepo.DeleteAsync(id);
         }
 
-        public bool update(UpdatePatientVM patientvm)
+        public async Task<List<GetAllPatientssVM>> GetAllAsync()
         {
+            var patients = await _patientsRepo.GetAllAsync();
+            return _mapper.Map<List<GetAllPatientssVM>>(patients);
+        }
+
+        public async Task<GetPatientByIdVM> GetByIdAsync(string id)
+        {
+            var patient = await _patientsRepo.GetByIdAsync(id);
+            return _mapper.Map<GetPatientByIdVM>(patient);
+        }
+
+        public async Task<bool> UpdateAsync(UpdatePatientVM patientVm)
+        {
+
+            var patient = _mapper.Map<Patient>(patientVm);
+            return await _patientsRepo.UpdateAsync(patient);
+
 
 
 
@@ -94,6 +91,7 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
                 return true;
             }
             else return false;
+
 
 
         }

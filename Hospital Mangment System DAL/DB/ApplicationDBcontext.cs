@@ -1,4 +1,6 @@
 ﻿using Hospital_Mangment_System_DAL.Entites;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Hospital_Mangment_System_DAL.DB
 {
-    public class ApplicationDBcontext:DbContext
+    public class ApplicationDBcontext:IdentityDbContext<ApplicationUser>
     {
 
         public ApplicationDBcontext(DbContextOptions<ApplicationDBcontext> options) : base(options)
@@ -31,6 +33,9 @@ namespace Hospital_Mangment_System_DAL.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            //modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+            //modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
+            //modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
 
             modelBuilder.Entity<Bill>()
                 .HasOne(a => a.patient)

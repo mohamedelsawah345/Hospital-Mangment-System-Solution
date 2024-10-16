@@ -8,75 +8,74 @@ namespace Hospital_Mangment_System_PL.Controllers
 {
     public class NurseController : Controller
     {
-        private readonly INurseService nurseService;
+        private readonly INurseService _nurseService;
 
         public NurseController(INurseService nurseService)
         {
-            this.nurseService = nurseService;
+            _nurseService = nurseService;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult GetAllNurses()
+
+        public async Task<IActionResult> GetAllNurses()
         {
-
-            var result = nurseService.getAll();
-
-
+            var result = await _nurseService.GetAllAsync(); 
             return View(result);
-
         }
-        public IActionResult GetNurseById(int id)
+
+        public async Task<IActionResult> GetNurseById(string id)
         {
-
-            var result = nurseService.getbyId(id);
-
+            var result = await _nurseService.GetByIdAsync(id); 
             return View(result);
-
         }
+
         [HttpGet]
         public IActionResult AddNurse()
         {
             return View();
-
         }
+
         [HttpPost]
-        public IActionResult AddNurse(CreateNurseVM nurseVM)
+        public async Task<IActionResult> AddNurse(CreateNurseVM nurseVM)
         {
-
-
-            nurseService.add(nurseVM);
-            return RedirectToAction("GetAllNurses");
-            //return View();
-
+            if (ModelState.IsValid) 
+            {
+                await _nurseService.AddAsync(nurseVM); 
+                return RedirectToAction("GetAllNurses");
+            }
+            return View(nurseVM); 
         }
-        //comment test
 
-        public IActionResult DeleteNurse(int Id)
+        public async Task<IActionResult> DeleteNurse(string id)
         {
-            nurseService.delete(Id);
-
+            await _nurseService.DeleteAsync(id); 
             return RedirectToAction("GetAllNurses");
         }
+
         [HttpGet]
-        public IActionResult UpdateNurse()
+        public async Task<IActionResult> UpdateNurse(string id)
         {
-
-            return View();
-
-
+            var nurse = await _nurseService.GetByIdAsync(id); 
+            if (nurse == null)
+            {
+                return NotFound(); 
+            }
+            return View(nurse); 
         }
 
         [HttpPost]
-        public IActionResult UpdateNurse(UpdateNurseVM nurseVM)
+        public async Task<IActionResult> UpdateNurse(UpdateNurseVM nurseVM)
         {
-            nurseService.update(nurseVM);
-
-            return RedirectToAction("GetAllNurses");
-
-
+            if (ModelState.IsValid) 
+            {
+                await _nurseService.UpdateAsync(nurseVM); 
+                return RedirectToAction("GetAllNurses");
+            }
+            return View(nurseVM); 
         }
     }
+
 }
