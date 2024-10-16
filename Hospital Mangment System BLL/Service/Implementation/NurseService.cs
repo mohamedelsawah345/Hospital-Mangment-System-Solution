@@ -33,7 +33,7 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 
         }
 
-        public bool delete(int NurseID)
+        public bool delete(string NurseID)
         {
 
             if (_NurseRepo.delete(NurseID))
@@ -54,7 +54,7 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 
         }
 
-        public GetNurseByIdVM getbyId(int NurseID)
+        public GetNurseByIdVM getbyId(string NurseID)
         {
             var result = _NurseRepo.getbyId(NurseID);
             var newdata = _mapper.Map<GetNurseByIdVM>(result);

@@ -26,10 +26,10 @@ namespace Hospital_Mangment_System_PL.Controllers
             return View(result);
 
         }
-        public IActionResult GetPatientById()
+        public IActionResult GetPatientById(string id)
         {
 
-            var result = _patientService.getbyId(5);
+            var result = _patientService.getbyId(id);
 
             return View(result);
 
@@ -54,9 +54,9 @@ namespace Hospital_Mangment_System_PL.Controllers
         }
         //comment test
 
-        public IActionResult DeletePatient(int id)
+        public IActionResult DeletePatient(string id)
         {
-            _patientService.delete(8);
+            _patientService.delete(id);
 
           return  RedirectToAction("GetAllPatient");
         }

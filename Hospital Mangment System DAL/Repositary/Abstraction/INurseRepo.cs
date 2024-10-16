@@ -10,9 +10,9 @@ namespace Hospital_Mangment_System_DAL.Repositary.Abstraction
     public interface INurseRepo
     {
         public bool add(Nurse nurse);
-        public bool delete(int NurseID);
+        public bool delete(string NurseID);
         public bool update(Nurse nurse);
-        public Nurse getbyId(int NurseID);
+        public Nurse getbyId(string NurseID);
         public List<Nurse> getAll();
     }
 }

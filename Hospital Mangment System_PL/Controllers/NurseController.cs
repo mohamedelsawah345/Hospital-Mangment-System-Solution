@@ -28,7 +28,7 @@ namespace Hospital_Mangment_System_PL.Controllers
             return View(result);
 
         }
-        public IActionResult GetNurseById(int id)
+        public IActionResult GetNurseById(string id)
         {
 
             var result = nurseService.getbyId(id);
@@ -54,7 +54,7 @@ namespace Hospital_Mangment_System_PL.Controllers
         }
         //comment test
 
-        public IActionResult DeleteNurse(int Id)
+        public IActionResult DeleteNurse(string Id)
         {
             nurseService.delete(Id);
 

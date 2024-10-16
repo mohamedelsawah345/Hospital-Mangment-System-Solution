@@ -42,7 +42,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
          
         }
 
-        public bool delete(int id)
+        public bool delete(string id)
         {
 
           
@@ -86,7 +86,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
         }
 
-        public Patient getbyId(int id)
+        public Patient getbyId(string id)
         {
 
 

@@ -32,9 +32,9 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
         }
 
-        public bool delete(int NurseID)
+        public bool delete(string NurseID)
         {
-            var result = _DBcontext.nurses.Where(p => p.NurseID == NurseID).FirstOrDefault(); //don't forget first or default 
+            var result = _DBcontext.nurses.Where(p => p.Id == NurseID).FirstOrDefault(); //don't forget first or default 
             if (result != null)
             {
                 result.IsDeleted = !result.IsDeleted;
@@ -55,27 +55,27 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         }
 
 
-        public Nurse getbyId(int NurseID)
+        public Nurse getbyId(string NurseID)
         {
-            return _DBcontext.nurses.Include(n => n.Department).Where(p => p.NurseID == NurseID).FirstOrDefault(); //don't forget first or default 
+            return _DBcontext.nurses.Include(n => n.Department).Where(p => p.Id == NurseID).FirstOrDefault(); //don't forget first or default 
 
 
         }
 
         public bool update(Nurse nurse)
         {
-            var result = _DBcontext.nurses.Where(p => p.NurseID == nurse.NurseID).FirstOrDefault(); //don't forget first or default 
+            var result = _DBcontext.nurses.Where(p => p.Id == nurse.Id).FirstOrDefault(); //don't forget first or default 
             var DepartmentName = from Nurse in _DBcontext.nurses
                                  join Department in _DBcontext.departments
                                  on nurse.Dnum equals Department.Dnum
                                  select new
                                  {
-                                     NurseName = nurse.Name,
+                                     NurseName = nurse.UserName,
                                      DepartmentName = Department.Dname
                                  };
             if (result != null)
             {
-                result.Name = nurse.Name;
+                result.UserName = nurse.UserName;
                 result.phones = nurse.phones;
 
 

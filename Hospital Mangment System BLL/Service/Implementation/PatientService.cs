@@ -39,7 +39,7 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 
         }
 
-        public bool delete(int id)
+        public bool delete(string id)
         {
 
             if (_patientsRepo.delete(id))
@@ -60,7 +60,7 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 
         }
 
-        public GetPatientByIdVM getbyId(int id)
+        public GetPatientByIdVM getbyId(string id)
         {
             var result = _patientsRepo.getbyId(id);
             var newdata= _mapper.Map<GetPatientByIdVM>( result);

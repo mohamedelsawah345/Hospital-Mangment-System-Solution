@@ -42,7 +42,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
         }
 
-        public bool delete(int id)
+        public bool delete(string id)
         {
 
 
@@ -50,7 +50,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
             try
             {
-                var result = _DBcontext.Doctors.Where(p => p.DrId == id).FirstOrDefault(); //don't forget frist or defualt 
+                var result = _DBcontext.Doctors.Where(p =>  p.Id == id).FirstOrDefault(); //don't forget frist or defualt 
 
                 result.IsDeleted = true;
                 _DBcontext.SaveChanges();
@@ -82,13 +82,13 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
         }
 
-        public Doctor getbyId(int id)
+        public Doctor getbyId(string id)
         {
 
 
             try
             {
-                return _DBcontext.Doctors.Where(p => p.DrId == id).FirstOrDefault(); //don't forget frist or defualt 
+                return _DBcontext.Doctors.Where(p => p.Id== id).FirstOrDefault(); //don't forget frist or defualt 
 
 
             }
@@ -103,7 +103,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
         public bool update(Doctor doctor)
         {
-            var result = _DBcontext.Doctors.Where(p => p.DrId == doctor.DrId).FirstOrDefault(); //don't forget frist or defualt 
+            var result = _DBcontext.Doctors.Where(p => p.Id == doctor.Id).FirstOrDefault(); //don't forget frist or defualt 
 
             try
             {

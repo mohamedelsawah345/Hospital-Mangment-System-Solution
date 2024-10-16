@@ -10,11 +10,11 @@ namespace Hospital_Mangment_System_BLL.View_model.patientVM
     public interface IPatientService
     {
         public bool add(CreatePatientVM patient);
-        public bool delete(int id);
+        public bool delete(string id);
 
         public bool update(UpdatePatientVM patient);
 
-        public GetPatientByIdVM getbyId(int id);
+        public GetPatientByIdVM getbyId(string id);
 
         public List<GetAllPatientssVM> getAll();
     }

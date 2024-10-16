@@ -10,11 +10,11 @@ namespace Hospital_Mangment_System_DAL.Repositary.Abstraction
     public interface IPatientsRepo
     {
         public bool add(Patient patient);
-        public bool delete(int id);
+        public bool delete(string id);
 
         public bool update(Patient patient);
 
-        public Patient getbyId(int id);
+        public Patient getbyId(string id);
 
         public List<Patient> getAll();
 

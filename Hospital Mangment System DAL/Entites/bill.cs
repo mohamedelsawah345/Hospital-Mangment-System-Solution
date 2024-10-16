@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace Hospital_Mangment_System_DAL.Entites
 {
     public class Bill
     {
+        [Key]
         public int ID { get; set; }
 
         public int Amount { get; set; }
@@ -19,7 +21,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         [ForeignKey("patientId")]
         public Patient patient { get; set; }
 
-        public int patientId { get; set; }
+        public string patientId { get; set; }
 
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hospital_Mangment_System_DAL.DB;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,11 +10,9 @@ using System.Threading.Tasks;
 
 namespace Hospital_Mangment_System_DAL.Entites
 {
-    public class Nurse
+    public class Nurse: ApplicationUser
     {
-        [Key]
-        public int NurseID { get; set; }
-        public string Name { get; set; }
+
         public long phones { get; set; }
         public bool? IsDeleted { get; set; }
         public int Dnum { get; set; }

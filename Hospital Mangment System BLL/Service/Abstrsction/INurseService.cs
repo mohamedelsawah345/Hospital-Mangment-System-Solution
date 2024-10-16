@@ -6,9 +6,9 @@ namespace Hospital_Mangment_System_BLL.Service.Abstrsction
     public interface INurseService
     {
         public bool add(CreateNurseVM department);
-        public bool delete(int NurseID);
+        public bool delete(string NurseID);
         public bool update(UpdateNurseVM department);
-        public GetNurseByIdVM getbyId(int NurseID);
+        public GetNurseByIdVM getbyId(string NurseID);
         public List<GetAllNursesVM> getAll();
     }
 }
