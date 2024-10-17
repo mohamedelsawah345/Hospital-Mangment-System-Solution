@@ -1,21 +1,27 @@
 ﻿using Hospital_Mangment_System_DAL.Entites;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Hospital_Mangment_System_DAL.DB
 {
-    public class ApplicationDBcontext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDBcontext:IdentityDbContext<ApplicationUser>
     {
 
         public ApplicationDBcontext(DbContextOptions<ApplicationDBcontext> options) : base(options)
         {
 
-
+            
         }
         //test1
 
-        public DbSet<Patient> patients { get; set; }
-        public DbSet<Bill> bills { get; set; }
+       public DbSet<Patient> patients { get; set; }
+       public DbSet<Bill> bills { get; set; }
         public DbSet<Addmission> addmissions { get; set; }
         public DbSet<Appointment> appointments { get; set; }
         public DbSet<Department> departments { get; set; }
@@ -26,34 +32,10 @@ namespace Hospital_Mangment_System_DAL.DB
         //abnaser
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            // ApplicationUser configuration
-            modelBuilder.Entity<Doctor>()
-                .HasKey(n => n.ApplicationUserId);
-            modelBuilder.Entity<ApplicationUser>()
-                .HasOne(au => au.Doctor)
-                .WithOne(d => d.ApplicationUser)
-                .HasForeignKey<Doctor>(d => d.ApplicationUserId)
-                .OnDelete(DeleteBehavior.Restrict);
 
-            // Nurse entity configuration
-            modelBuilder.Entity<Nurse>()
-                .HasKey(n => n.ApplicationUserId);
-            modelBuilder.Entity<Nurse>()
-                .HasOne(n => n.ApplicationUser)
-                .WithOne(au => au.Nurse)
-                .HasForeignKey<Nurse>(n => n.ApplicationUserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // Patient entity configuration
-            modelBuilder.Entity<Patient>()
-                .HasKey(p => p.ApplicationUserId);
-            modelBuilder.Entity<Patient>()
-                .HasOne(p => p.ApplicationUser)
-                .WithOne(au => au.Patient)
-                .HasForeignKey<Patient>(p => p.ApplicationUserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
+            //modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+            //modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
+            //modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
 
             modelBuilder.Entity<Bill>()
                 .HasOne(a => a.patient)
@@ -61,8 +43,8 @@ namespace Hospital_Mangment_System_DAL.DB
                 .HasForeignKey(a => a.patientId)
                 .OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Appointment>()
-                .HasOne(p => p.patient)
-                .WithMany(a => a.Appointments)
+                .HasOne(p=>p.patient)
+                .WithMany(a=>a.Appointments)
                 .HasForeignKey(a => a.patient_id)
                 .OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Addmission>()
@@ -76,7 +58,7 @@ namespace Hospital_Mangment_System_DAL.DB
                  .HasForeignKey(a => a.Patient_ID)
                  .OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Nurse>()
-                 .HasOne(n => n.Department)
+                 .HasOne(n=>n.Department)
                  .WithMany(a => a.nurses)
                  .HasForeignKey(a => a.Dnum)
                  .OnDelete(DeleteBehavior.NoAction);

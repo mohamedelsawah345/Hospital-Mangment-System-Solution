@@ -5,7 +5,7 @@
 namespace Hospital_Mangment_System_DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class MakePhoneNullable : Migration
+    public partial class Test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
