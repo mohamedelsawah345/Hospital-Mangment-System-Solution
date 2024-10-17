@@ -4,7 +4,7 @@
     ViewData["Title"] = "UpdateNurse";
 }
 
-<form asp-action="UpdateNurse" asp-controller="nurse">
+<form asp-action="UpdateNurse" asp-controller="nurse" enctype="multipart/form-data">
 
     <div class="mb-3">
         <label for="ID" class="form-label">ID</label>
@@ -21,7 +21,10 @@
         <label for="phones" class="form-label">phones</label>
         <input asp-for=phones type="text" class="form-control" id="phones" placeholder="Enter phones">
     </div>
-
+    <div class="mb-3">
+        <label for="Image" class="form-label">Image</label>
+        <input asp-for=Image type="file" class="form-control" id="phones" placeholder="Enter Image">
+    </div>
 
 
     <button type="submit" class="btn btn-primary">Summit</button>

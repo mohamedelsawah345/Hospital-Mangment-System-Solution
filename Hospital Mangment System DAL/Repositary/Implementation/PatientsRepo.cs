@@ -88,6 +88,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
             {
                 var result = await _DBcontext.patients.Where(d => d.ApplicationUserId == patient.ApplicationUserId).FirstOrDefaultAsync();
 
+
                 if (result != null)
                 {
                     result.Phone = patient.Phone;
@@ -95,6 +96,15 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
                     return true;
                 }
                 return false; // Patient not found
+
+                result.phone1 = patient.phone1;
+                result.phone2 = patient.phone2;
+                result.Imagepath = patient.Imagepath;
+
+                _DBcontext.SaveChanges();
+                return true;
+
+
             }
             catch (Exception ex)
             {

@@ -20,6 +20,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public bool? IsDeleted { get; set; }
         public DateOnly birthday { get; set; }
         public char Gender { get; set; }
+        public string ?Imagepath { get; set; }
         public List<Bill>? Bills { get; set; }
         public List<Appointment>? Appointments { get; set; }
         public List<Addmission>? Addmissions { get; set; }

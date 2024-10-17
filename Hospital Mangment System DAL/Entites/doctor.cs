@@ -21,6 +21,7 @@ namespace Hospital_Mangment_System_DAL.Entites
 
         // Navigation property - A doctor works in one department
         public int Dnum { get; set; }
+        public string Imagepath { get; set; }
         public virtual Department department { get; set; }
 
         // Navigation property - A doctor may manage one department

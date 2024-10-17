@@ -217,33 +217,6 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.ToTable("departments");
                 });
 
-            modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Doctor", b =>
-                {
-                    b.Property<string>("ApplicationUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Dnum")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Speciality")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ApplicationUserId");
-
-                    b.HasIndex("Dnum");
-
-                    b.ToTable("Doctors");
-                });
-
             modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Lap_test", b =>
                 {
                     b.Property<int>("Test_ID")
@@ -292,6 +265,10 @@ namespace Hospital_Mangment_System_DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Equip_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Imagepath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -484,7 +461,84 @@ namespace Hospital_Mangment_System_DAL.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+            modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Doctor", b =>
+                {
+                    b.HasBaseType("Hospital_Mangment_System_DAL.DB.ApplicationUser");
+
+                    b.Property<int>("Dnum")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Speciality")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("Dnum");
+
+                    b.HasDiscriminator().HasValue("Doctor");
+                });
+
+            modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Nurse", b =>
+                {
+                    b.HasBaseType("Hospital_Mangment_System_DAL.DB.ApplicationUser");
+
+                    b.Property<int>("Dnum")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("phones")
+                        .HasColumnType("bigint");
+
+                    b.HasIndex("Dnum");
+
+                    b.ToTable("Users", t =>
+                        {
+                            t.Property("Dnum")
+                                .HasColumnName("Nurse_Dnum");
+
+                            t.Property("IsDeleted")
+                                .HasColumnName("Nurse_IsDeleted");
+                        });
+
+                    b.HasDiscriminator().HasValue("Nurse");
+                });
+
+            modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Patient", b =>
+                {
+                    b.HasBaseType("Hospital_Mangment_System_DAL.DB.ApplicationUser");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateOnly>("birthday")
+                        .HasColumnType("date");
+
+                    b.Property<string>("phone1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("phone2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("Users", t =>
+                        {
+                            t.Property("IsDeleted")
+                                .HasColumnName("Patient_IsDeleted");
+                        });
+
+                    b.HasDiscriminator().HasValue("Patient");
                 });
 
             modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Addmission", b =>
