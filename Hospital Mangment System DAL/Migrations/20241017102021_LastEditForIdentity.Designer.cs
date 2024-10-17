@@ -4,6 +4,7 @@ using Hospital_Mangment_System_DAL.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital_Mangment_System_DAL.Migrations
 {
     [DbContext(typeof(ApplicationDBcontext))]
-    partial class ApplicationDBcontextModelSnapshot : ModelSnapshot
+    [Migration("20241017102021_LastEditForIdentity")]
+    partial class LastEditForIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,6 +36,11 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -93,6 +101,10 @@ namespace Hospital_Mangment_System_DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Addmission", b =>
@@ -217,33 +229,6 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.ToTable("departments");
                 });
 
-            modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Doctor", b =>
-                {
-                    b.Property<string>("ApplicationUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Dnum")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Speciality")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ApplicationUserId");
-
-                    b.HasIndex("Dnum");
-
-                    b.ToTable("Doctors");
-                });
-
             modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Lap_test", b =>
                 {
                     b.Property<int>("Test_ID")
@@ -267,15 +252,14 @@ namespace Hospital_Mangment_System_DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("doctorApplicationUserId")
-                        .IsRequired()
+                    b.Property<string>("doctorId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Test_ID");
 
                     b.HasIndex("Patient_ID");
 
-                    b.HasIndex("doctorApplicationUserId");
+                    b.HasIndex("doctorId");
 
                     b.ToTable("lap_Tests");
                 });
@@ -487,6 +471,33 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Doctor", b =>
+                {
+                    b.HasBaseType("Hospital_Mangment_System_DAL.DB.ApplicationUser");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Dnum")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Speciality")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique()
+                        .HasFilter("[ApplicationUserId] IS NOT NULL");
+
+                    b.HasIndex("Dnum");
+
+                    b.HasDiscriminator().HasValue("Doctor");
+                });
+
             modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Addmission", b =>
                 {
                     b.HasOne("Hospital_Mangment_System_DAL.Entites.Patient", "patient")
@@ -529,25 +540,6 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Navigation("Manager");
                 });
 
-            modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Doctor", b =>
-                {
-                    b.HasOne("Hospital_Mangment_System_DAL.DB.ApplicationUser", "ApplicationUser")
-                        .WithOne("Doctor")
-                        .HasForeignKey("Hospital_Mangment_System_DAL.Entites.Doctor", "ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Hospital_Mangment_System_DAL.Entites.Department", "department")
-                        .WithMany("Doctors")
-                        .HasForeignKey("Dnum")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("department");
-                });
-
             modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Lap_test", b =>
                 {
                     b.HasOne("Hospital_Mangment_System_DAL.Entites.Patient", "patient")
@@ -558,9 +550,7 @@ namespace Hospital_Mangment_System_DAL.Migrations
 
                     b.HasOne("Hospital_Mangment_System_DAL.Entites.Doctor", "doctor")
                         .WithMany("lap_Tests")
-                        .HasForeignKey("doctorApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("doctorId");
 
                     b.Navigation("doctor");
 
@@ -658,6 +648,25 @@ namespace Hospital_Mangment_System_DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Doctor", b =>
+                {
+                    b.HasOne("Hospital_Mangment_System_DAL.DB.ApplicationUser", "ApplicationUser")
+                        .WithOne("Doctor")
+                        .HasForeignKey("Hospital_Mangment_System_DAL.Entites.Doctor", "ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Hospital_Mangment_System_DAL.Entites.Department", "department")
+                        .WithMany("Doctors")
+                        .HasForeignKey("Dnum")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("department");
+                });
+
             modelBuilder.Entity("Hospital_Mangment_System_DAL.DB.ApplicationUser", b =>
                 {
                     b.Navigation("Doctor")
@@ -679,14 +688,6 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Navigation("nurses");
                 });
 
-            modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Doctor", b =>
-                {
-                    b.Navigation("ManagedDepartment")
-                        .IsRequired();
-
-                    b.Navigation("lap_Tests");
-                });
-
             modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Patient", b =>
                 {
                     b.Navigation("Addmissions");
@@ -694,6 +695,14 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Navigation("Appointments");
 
                     b.Navigation("Bills");
+
+                    b.Navigation("lap_Tests");
+                });
+
+            modelBuilder.Entity("Hospital_Mangment_System_DAL.Entites.Doctor", b =>
+                {
+                    b.Navigation("ManagedDepartment")
+                        .IsRequired();
 
                     b.Navigation("lap_Tests");
                 });
