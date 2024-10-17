@@ -11,17 +11,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Hospital_Mangment_System_BLL.Service.Abstrsction;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using IEmailSender = Hospital_Mangment_System_BLL.Service.Abstrsction.IEmailSender;
 
 namespace Hospital_Mangment_System_PL
 {
     public class Program
     {
-        // just a method to reduce the redundant of the code mn 3mk 3bnaser
         private static void ConfigurePasswordOptions(IdentityOptions options)
         {
             options.Password.RequireDigit = true;
-            options.Password.RequireLowercase = true;
-            options.Password.RequireNonAlphanumeric = true;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireUppercase = false;
             options.Password.RequiredLength = 8;
             options.Password.RequiredUniqueChars = 0;
@@ -45,44 +46,42 @@ namespace Hospital_Mangment_System_PL
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Account/Login";
-                    options.AccessDeniedPath = "/Account/Login";
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Cookie expiration
+                    options.SlidingExpiration = true;
                 });
 
-           
-  
-            //  Doctor,patient,nurse IDentity
+            // Identity configuration
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
-                ConfigurePasswordOptions(options);// the password
-                options.SignIn.RequireConfirmedAccount = true;
+                ConfigurePasswordOptions(options);
+                options.SignIn.RequireConfirmedAccount = false; // Email confirmation
             })
             .AddEntityFrameworkStores<ApplicationDBcontext>()
-            .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
+            .AddDefaultTokenProviders(); // For email confirmation, password resets, etc.
+
+            // Configure email sender for confirmation emails (you can use services like SendGrid or SMTP)
+            builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
 
             // Register repositories and services
-            //patient Service
             builder.Services.AddScoped<IPatientsRepo, PatientsRepo>();
             builder.Services.AddScoped<IPatientService, PatientService>();
-            //Appointment Service
             builder.Services.AddScoped<IappointmentRepo, appointmentRepo>();
             builder.Services.AddScoped<IAppointmentService, AppointmentService>();
-            //Department Service
             builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
-            //bills Service
             builder.Services.AddScoped<IbillsRepo, billsRepo>();
             builder.Services.AddScoped<IBillService, BillService>();
-            //medical Service
             builder.Services.AddScoped<IMedicalEquipmentService, MedicalEquipmentService>();
             builder.Services.AddScoped<IMedicalEquipmentRepo, MedicalEquipmentRepo>();
-            //Nurse Service
             builder.Services.AddScoped<INurseRepo, NurseRepo>();
             builder.Services.AddScoped<INurseService, NurseService>();
-            //Doctor Service
             builder.Services.AddScoped<IDoctorRepo, DoctorRepo>();
             builder.Services.AddScoped<IDoctorService, DoctorService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
-            // Mapping service
+            // Add AutoMapper for object mapping
             builder.Services.AddAutoMapper(x => x.AddProfile(new MyProfile()));
 
             var app = builder.Build();
@@ -94,8 +93,17 @@ namespace Hospital_Mangment_System_PL
             }
             app.UseStaticFiles();
             app.UseRouting();
+
+            // Authentication & Authorization middleware
             app.UseAuthentication();
             app.UseAuthorization();
+
+            // Ensure roles exist
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                CreateRoles(roleManager).Wait(); // Ensure roles are created
+            }
 
             app.MapControllerRoute(
                 name: "default",
@@ -103,5 +111,19 @@ namespace Hospital_Mangment_System_PL
 
             app.Run();
         }
+
+        // Ensure roles exist
+        private static async Task CreateRoles(RoleManager<IdentityRole> roleManager)
+        {
+            string[] roleNames = { "Doctor", "Nurse", "Patient" };
+            foreach (var roleName in roleNames)
+            {
+                if (!await roleManager.RoleExistsAsync(roleName))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+        }
     }
+
 }
