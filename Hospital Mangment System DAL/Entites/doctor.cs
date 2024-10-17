@@ -12,7 +12,7 @@ namespace Hospital_Mangment_System_DAL.Entites
 {
     public class Doctor 
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public string ApplicationUserId { get; set; } // Foreign key for ApplicationUser
         public virtual ApplicationUser ApplicationUser { get; set; }
         public string Phone { get; set; }
@@ -21,7 +21,6 @@ namespace Hospital_Mangment_System_DAL.Entites
 
         // Navigation property - A doctor works in one department
         public int Dnum { get; set; }
-        public string Imagepath { get; set; }
         public virtual Department department { get; set; }
 
         // Navigation property - A doctor may manage one department

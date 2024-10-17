@@ -27,27 +27,21 @@ namespace Hospital_Mangment_System_DAL.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // ApplicationUser configuration
+            // Doctor-ApplicationUser relationship
             modelBuilder.Entity<Doctor>()
-                .HasKey(n => n.ApplicationUserId);
-            modelBuilder.Entity<ApplicationUser>()
-                .HasOne(au => au.Doctor)
-                .WithOne(d => d.ApplicationUser)
+                .HasOne(d => d.ApplicationUser)
+                .WithOne(au => au.Doctor)
                 .HasForeignKey<Doctor>(d => d.ApplicationUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Nurse entity configuration
-            modelBuilder.Entity<Nurse>()
-                .HasKey(n => n.ApplicationUserId);
+            // Nurse-ApplicationUser relationship
             modelBuilder.Entity<Nurse>()
                 .HasOne(n => n.ApplicationUser)
                 .WithOne(au => au.Nurse)
                 .HasForeignKey<Nurse>(n => n.ApplicationUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Patient entity configuration
-            modelBuilder.Entity<Patient>()
-                .HasKey(p => p.ApplicationUserId);
+            // Patient-ApplicationUser relationship
             modelBuilder.Entity<Patient>()
                 .HasOne(p => p.ApplicationUser)
                 .WithOne(au => au.Patient)

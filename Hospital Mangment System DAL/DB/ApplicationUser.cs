@@ -11,6 +11,7 @@ namespace Hospital_Mangment_System_DAL.DB
 {
     public  class ApplicationUser:IdentityUser
     {
+
         public string Role_Type { get; set; } //(Doctor,nurse,patient)
         public string Phone { get; set; }
         // relations 

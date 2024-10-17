@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Hospital_Mangment_System_DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class AddIdentity : Migration
+    public partial class RemoveImage : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,7 +30,7 @@ namespace Hospital_Mangment_System_DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    role_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -295,7 +295,8 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     Equip_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Maintence_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    Dnum = table.Column<int>(type: "int", nullable: true)
+                    Dnum = table.Column<int>(type: "int", nullable: true),
+                    Imagepath = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

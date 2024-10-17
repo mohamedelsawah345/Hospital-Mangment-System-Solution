@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,20 +11,25 @@ namespace Hospital_Mangment_System_BLL.View_model.patientVM
 {
     public class GetAllPatientssVM
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string? Imagepath { get; set; }
+        public string Id { get; set; } // This will be the ApplicationUserId
+        [Required]
+        [Display(Name = "Full Name")]
+        public string UserName { get; set; }
 
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
 
-        public DateOnly birthday { get; set; }
+        [Required]
+        [Phone]
+        public string Phone { get; set; }
 
+        [Required]
+        [Display(Name = "Birthday")]
+        [DataType(DataType.Date)]
+        public DateTime Birthday { get; set; } // Patient-specific
 
-        public int phone1 { get; set; }
-
-        public int? phone2 { get; set; }
-
-        public char Gender { get; set; }
-
-        
+        [Required]
+        public string Gender { get; set; } // Patient-specific
     }
 }

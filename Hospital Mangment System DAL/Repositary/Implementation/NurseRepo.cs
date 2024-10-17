@@ -74,8 +74,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
             try
             {
-                return await _DBcontext.nurses.Include(n => n.Department)
-                                              .FirstOrDefaultAsync(n => n.ApplicationUserId == nurseId);
+                return await _DBcontext.nurses.Include(n => n.Department).FirstOrDefaultAsync(n => n.ApplicationUserId == nurseId);
             }
             catch (Exception ex)
             {
@@ -100,15 +99,6 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
                     return true;
                 }
                 return false;
-
-                result.Name = nurse.Name;
-                result.phones = nurse.phones;
-                result.Imagepath = nurse.Imagepath;
-
-
-                _DBcontext.SaveChanges();
-                return true;
-
             }
             catch (Exception ex)
             {
