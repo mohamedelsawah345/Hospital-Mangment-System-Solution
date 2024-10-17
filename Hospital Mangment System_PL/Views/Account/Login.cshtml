@@ -1,0 +1,42 @@
+﻿@using Hospital_Mangment_System_BLL.View_model.AuthenticationVM
+@model LoginVM
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Login" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group form-check">
+        <input asp-for="RememberMe" class="form-check-input" />
+        <label class="form-check-label" asp-for="RememberMe">Remember Me</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+<a asp-action="RegisterDoctor">Don't have an account? Register as a Doctor</a>
+<br />
+<a asp-action="RegisterNurse">Register as a Nurse</a>
+<br />
+<a asp-action="RegisterPatient">Register as a Patient</a>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
