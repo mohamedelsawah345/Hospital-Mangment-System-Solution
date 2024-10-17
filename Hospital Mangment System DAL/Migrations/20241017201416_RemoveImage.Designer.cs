@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital_Mangment_System_DAL.Migrations
 {
     [DbContext(typeof(ApplicationDBcontext))]
-    [Migration("20241016210055_EditDoctor")]
-    partial class EditDoctor
+    [Migration("20241017201416_RemoveImage")]
+    partial class RemoveImage
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,6 +71,10 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Role_Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -80,10 +84,6 @@ namespace Hospital_Mangment_System_DAL.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("role_Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -239,10 +239,6 @@ namespace Hospital_Mangment_System_DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("ApplicationUserId");
 
                     b.HasIndex("Dnum");
@@ -297,6 +293,10 @@ namespace Hospital_Mangment_System_DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Equip_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Imagepath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

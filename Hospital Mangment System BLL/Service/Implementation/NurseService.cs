@@ -28,17 +28,6 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 
                 var result = _mapper.Map<Nurse>(nursevm);
                 return await _nurseRepo.AddAsync(result);
-
-
-                var result = _mapper.Map<Nurse>(Nursevm);
-                if (Nursevm.Image != null)
-                {
-                    result.Imagepath = Upload.UploadFile("Profile", Nursevm.Image);
-                }
-
-                _NurseRepo.add(result);
-                return true;
-
             }
             return false;
         }
@@ -71,15 +60,6 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
                 var result = _mapper.Map<Nurse>(nursevm);
 
                 return await _nurseRepo.UpdateAsync(result);
-
-                if (nursevm.Image != null)
-                {
-                    result.Imagepath = Upload.UploadFile("Profile", nursevm.Image);
-                }
-
-                _NurseRepo.update(result);
-                return true;
-
             }
             return false;
         }

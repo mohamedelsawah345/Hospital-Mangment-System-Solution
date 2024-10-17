@@ -1,6 +1,7 @@
 ﻿using Hospital_Mangment_System_DAL.Entites;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,16 +10,20 @@ namespace Hospital_Mangment_System_BLL.View_model.NurseVM
 {
     public class GetNurseByIdVM
     {
-        public int NurseID { get; set; }
-        public string? Name { get; set; }
-        public long? phones { get; set; }
-        public bool? IsDeleted { get; set; }
-        public int? Dnum { get; set; }
+        public string Id { get; set; } // This will be the ApplicationUserId
+        [Required]
+        [Display(Name = "Full Name")]
+        public string UserName { get; set; }
 
-        public string? Imagepath { get; set; }
-        public Department? Department { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
 
-        public string? DepartmentName { get; set; }
+        [Required]
+        [Phone]
+        public string Phone { get; set; }
 
+        [Required]
+        public int DepartmentId { get; set; } // Nurse-specific
     }
 }

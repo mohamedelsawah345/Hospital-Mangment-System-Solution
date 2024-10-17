@@ -76,9 +76,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
             try
             {
-                return await _DBcontext.Doctors
-                    .Where(p => p.ApplicationUserId == id) 
-                    .FirstOrDefaultAsync();
+                return await _DBcontext.Doctors.Where(p => p.ApplicationUserId == id).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
