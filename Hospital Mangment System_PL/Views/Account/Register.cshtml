@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "User Registration";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>User Registration</h2>
+                </div>
+
+                <div class="card-body">
+                    <!-- Registration Form -->
+                    <form method="post" action="@Url.Action("Register", "Account")" class="needs-validation" novalidate>
+
+                        <!-- Full Name Field -->
+                        <div class="form-group mb-3">
+                            <label for="FullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="FullName" name="FullName" required placeholder="Enter your full name">
+                            <div class="invalid-feedback">Please enter your full name.</div>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="form-group mb-3">
+                            <label for="Email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="Email" name="Email" required placeholder="Enter your email">
+                            <div class="invalid-feedback">Please enter a valid email address.</div>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="form-group mb-3">
+                            <label for="Password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="Password" name="Password" required placeholder="Enter your password">
+                            <div class="invalid-feedback">Please enter a password.</div>
+                        </div>
+
+                        <!-- Confirm Password Field -->
+                        <div class="form-group mb-3">
+                            <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" required placeholder="Confirm your password">
+                            <div class="invalid-feedback">Passwords must match.</div>
+                        </div>
+
+                        <!-- Role Selection (Doctor, Patient, Nurse) -->
+                        <div class="form-group mb-3">
+                            <label for="Role" class="form-label">Register As</label>
+                            <select class="form-control" id="Role" name="Role" required>
+                                <option value="" disabled selected>Select your role</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Patient">Patient</option>
+                                <option value="Nurse">Nurse</option>
+                            </select>
+                            <div class="invalid-feedback">Please select your role.</div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional: Add JavaScript for client-side validation (Bootstrap) -->
+<script>
+    // Bootstrap form validation
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
