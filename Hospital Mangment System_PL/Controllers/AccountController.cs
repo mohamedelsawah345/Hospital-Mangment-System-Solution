@@ -13,12 +13,19 @@ namespace Hospital_Mangment_System_PL.Controllers
             _authService = authService;
         }
 
+        // Register
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         // Register Doctor
         [HttpGet]
         public IActionResult RegisterDoctor()
         {
             return View();
         }
+        
 
         [HttpPost]
         public async Task<IActionResult> RegisterDoctor(RegisterVM model)
