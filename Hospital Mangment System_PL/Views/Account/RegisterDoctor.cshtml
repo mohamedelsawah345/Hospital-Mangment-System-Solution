@@ -1,5 +1,87 @@
 ﻿@using Hospital_Mangment_System_BLL.View_model.AuthenticationVM
 @model RegisterVM
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Doctor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="background: linear-gradient(90deg, #13C5DD 0%, #55b2b4 50%);">
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg" style="max-width: 500px; width: 100%;">
+            <div class="card-body p-4">
+                <!-- Register Doctor Heading -->
+                <h2 class="text-center text-primary mb-4">Register Doctor</h2>
+
+                <!-- Registration Form -->
+                <form method="post" action="@Url.Action("RegisterDoctor", "Account")" novalidate>
+                    <!-- User Name Field -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="UserName" class="form-control" id="floatingUserName" placeholder="User Name" required>
+                        <label for="floatingUserName">User Name</label>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" type="email" class="form-control" id="floatingEmail" placeholder="Email Address" required>
+                        <label for="floatingEmail">Email</label>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                        <label for="floatingPassword">Password</label>
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Phone" type="tel" class="form-control" id="floatingPhone" placeholder="Phone Number" required>
+                        <label for="floatingPhone">Phone</label>
+                    </div>
+
+                    <!-- Speciality Field -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Speciality" class="form-control" id="floatingSpeciality" placeholder="Speciality" required>
+                        <label for="floatingSpeciality">Speciality</label>
+                    </div>
+
+                    <!-- Department Id Field -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="DepartmentId" type="number" class="form-control" id="floatingDepartmentId" placeholder="Department Id" required>
+                        <label for="floatingDepartmentId">Department Id</label>
+                    </div>
+
+                    <!-- Register Button -->
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+
+                <!-- Divider -->
+                <hr class="my-4">
+
+                <!-- Already Have an Account Link -->
+                <div class="text-center">
+                    <p>Already have an account? <a href="@Url.Action("Login", "Account")" class="text-primary">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+@*
+    BackUP
+    .....
+@using Hospital_Mangment_System_BLL.View_model.AuthenticationVM
+@model RegisterVM
 @{
     ViewData["Title"] = "Register Doctor";
 }
@@ -30,7 +112,7 @@
         <label asp-for="ConfirmPassword"></label>
         <input asp-for="ConfirmPassword" class="form-control" />
         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-    </div> *@
+    </div> 
 
     <div class="form-group">
         <label asp-for="Phone"></label>
@@ -60,3 +142,5 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+*@
