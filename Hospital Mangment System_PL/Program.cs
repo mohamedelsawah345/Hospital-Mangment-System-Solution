@@ -31,7 +31,7 @@ namespace Hospital_Mangment_System_PL
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+          
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -63,7 +63,21 @@ namespace Hospital_Mangment_System_PL
             // Configure email sender for confirmation emails (you can use services like SendGrid or SMTP)
             builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
             builder.Services.AddTransient<IEmailSender, EmailSender>();
+            builder.Services.AddHttpContextAccessor();
+            // Add Google authentication
+            builder.Services.AddAuthentication()
+                    .AddGoogle(options =>
+                    {
+                        options.ClientId = "931759170237-j6volpkukte1jg9ki7c8vrr5kru540cb.apps.googleusercontent.com";
+                        options.ClientSecret = "OCSPX-KbaGmZCZeIz1bWT0jHkHHk8V47dN";
+                    });
+                    //.AddFacebook(options =>
+                    //{
+                    //    options.AppId = "YOUR_FACEBOOK_APP_ID";
+                    //    options.AppSecret = "YOUR_FACEBOOK_APP_SECRET";
+                    //});
 
+            builder.Services.AddControllersWithViews();
             // Register repositories and services
             builder.Services.AddScoped<IPatientsRepo, PatientsRepo>();
             builder.Services.AddScoped<IPatientService, PatientService>();
