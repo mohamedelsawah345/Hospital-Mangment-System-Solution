@@ -1,5 +1,6 @@
 ﻿using Hospital_Mangment_System_BLL.Service.Abstraction;
 using Hospital_Mangment_System_BLL.View_model.AppointmentVM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_Mangment_System_PL.Controllers
@@ -42,15 +43,17 @@ namespace Hospital_Mangment_System_PL.Controllers
 
         // إضافة موعد جديد
         [HttpPost]
+        [Authorize(Roles ="Patient")]
         public IActionResult AddAppointment(AddAppointmentVM appointmentVM)
         {
+            var success = _appointmentService.Add(appointmentVM);
             if (!ModelState.IsValid)
             {
                 TempData["Error"] = "Invalid data. Please try again.";
                 return View(appointmentVM);
             }
 
-            var success = _appointmentService.Add(appointmentVM); // تأكد من استخدام Add
+            // تأكد من استخدام Add
             if (success)
             {
                 TempData["Success"] = "Appointment added successfully!";

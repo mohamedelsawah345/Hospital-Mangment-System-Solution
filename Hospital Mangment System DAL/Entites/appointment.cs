@@ -11,12 +11,12 @@ namespace Hospital_Mangment_System_DAL.Entites
     {
         [Key]
         public int Appointment_Id { get; set; }
-        public DateTime Date { get; set; }
-        public DateTime timeOftheappointment { get; set; }
-        public string Reason_Of_Visit { get; set; }
+        public DateTime? Date { get; set; }
+        public DateTime? timeOftheappointment { get; set; }
+        public string? Reason_Of_Visit { get; set; }
         public bool? IsDeleted { get; set; }
-        public string patient_id { get; set; }
-        public Patient patient { get; set; }
+        public string? patient_id { get; set; }
+        public Patient? patient { get; set; }
 
     }
 }

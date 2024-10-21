@@ -1,1 +1,45 @@
-﻿
+﻿@using Hospital_Mangment_System_BLL.View_model.AppointmentVM
+
+@model AddAppointmentVM
+@{
+    ViewData["Title"] = "Add Appointment";
+}
+
+<h2>Add New Appointment</h2>
+
+<!-- Display validation errors if any -->
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+<form asp-action="AddAppointment" method="post">
+    <div class="form-group">
+        <label asp-for="Reason_Of_Visit" class="control-label"></label>
+        <input asp-for="Reason_Of_Visit" class="form-control" />
+        <span asp-validation-for="Reason_Of_Visit" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Date" class="control-label"></label>
+        <input asp-for="Date" class="form-control" type="date" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Appointment</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
