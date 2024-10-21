@@ -17,8 +17,7 @@ namespace Hospital_Mangment_System_DAL.Entites
         public virtual ApplicationUser ApplicationUser { get; set; }
         public string Phone { get; set; }
         public string Speciality { get; set; }
-        public bool? IsDeleted { get; set; }
-
+        public bool IsDeleted { get; set; } = false;
         // Navigation property - A doctor works in one department
         public int Dnum { get; set; }
         public virtual Department department { get; set; }
