@@ -111,6 +111,5 @@ namespace Hospital_Mangment_System_PL.Controllers
             return View(model);
         }
 
-
     }
 }
