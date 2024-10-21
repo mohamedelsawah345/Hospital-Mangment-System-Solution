@@ -23,28 +23,30 @@
 
                 <!-- Login Form -->
                 <form method="post" action="@Url.Action("Login", "Account")" novalidate>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
                     <!-- Email Field -->
                     <div class="form-floating mb-3">
-                        <input asp-for="Email" name="Email" class="form-control" id="floatingEmail" placeholder="Email Address" required>
-                        <label for="floatingEmail">User Name</label>
+                        <input asp-for="Email" class="form-control" id="floatingEmail" placeholder="Email Address" required>
+                        <label for="floatingEmail">Email</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
                     <!-- Password Field -->
                     <div class="form-floating mb-3">
-                        <input asp-for="Password" type="password" name="Password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                        <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
                         <label for="floatingPassword">Password</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     <!-- Remember Me Checkbox -->
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="rememberMe" name="RememberMe">
+                        <input class="form-check-input" type="checkbox" asp-for="RememberMe" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember Me</label>
                     </div>
 
                     <!-- Login Button -->
                     <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
-
-                    
                 </form>
 
                 <!-- Divider -->
@@ -65,53 +67,9 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
 </body>
 </html>
-
-
-
-
-@*Backup*@
-@* @using Hospital_Mangment_System_BLL.View_model.AuthenticationVM
-@model LoginVM
-@{
-    ViewData["Title"] = "Login";
-}
-
-<h2>@ViewData["Title"]</h2>
-
-<form asp-action="Login" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-
-    <div class="form-group form-check">
-        <input asp-for="RememberMe" class="form-check-input" />
-        <label class="form-check-label" asp-for="RememberMe">Remember Me</label>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
-
-<a asp-action="RegisterDoctor">Don't have an account? Register as a Doctor</a>
-<br />
-<a asp-action="RegisterNurse">Register as a Nurse</a>
-<br />
-<a asp-action="RegisterPatient">Register as a Patient</a>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
- *@

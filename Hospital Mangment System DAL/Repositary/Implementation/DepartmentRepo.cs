@@ -52,6 +52,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
 
         public Department getbyId(int Dnum)
         {
+
             return _DBcontext.departments.Where(p => p.Dnum == Dnum).FirstOrDefault(); //don't forget first or default 
 
 

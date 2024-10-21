@@ -17,15 +17,12 @@ namespace Hospital_Mangment_System_PL.Controllers
         {
             return View();
         }
-
-        // عرض جميع المواعيد
         public IActionResult GetAllAppointment()
         {
             var result = _appointmentService.GetAll();
             return View(result);
         }
 
-        // عرض تفاصيل الموعد بناءً على المعرف
         public IActionResult GetAppointmentById(int id)
         {
             var result = _appointmentService.GetById(id);
@@ -37,7 +34,6 @@ namespace Hospital_Mangment_System_PL.Controllers
             return View(result);
         }
 
-        // عرض صفحة إضافة موعد جديد
         [HttpGet]
         public IActionResult AddAppointment()
         {

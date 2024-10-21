@@ -65,12 +65,12 @@ namespace Hospital_Mangment_System_PL
             builder.Services.AddTransient<IEmailSender, EmailSender>();
             builder.Services.AddHttpContextAccessor();
             // Add Google authentication
-            builder.Services.AddAuthentication()
-                    .AddGoogle(options =>
-                    {
-                        options.ClientId = "931759170237-j6volpkukte1jg9ki7c8vrr5kru540cb.apps.googleusercontent.com";
-                        options.ClientSecret = "OCSPX-KbaGmZCZeIz1bWT0jHkHHk8V47dN";
-                    });
+            //builder.Services.AddAuthentication()
+            //        .AddGoogle(options =>
+            //        {
+            //            options.ClientId = "931759170237-j6volpkukte1jg9ki7c8vrr5kru540cb.apps.googleusercontent.com";
+            //            options.ClientSecret = "OCSPX-KbaGmZCZeIz1bWT0jHkHHk8V47dN";
+            //        });
                     //.AddFacebook(options =>
                     //{
                     //    options.AppId = "YOUR_FACEBOOK_APP_ID";

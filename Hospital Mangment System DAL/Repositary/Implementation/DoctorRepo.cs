@@ -85,6 +85,12 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
             }
         }
 
+        public async Task<bool> IsUsernameUnique(string username)
+        {
+            return !await _DBcontext.Users.AnyAsync(d => d.UserName == username);
+        }
+
+
         //  update method
         public async Task<bool> UpdateAsync(Doctor doctor)
         {

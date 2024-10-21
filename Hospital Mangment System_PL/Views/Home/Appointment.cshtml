@@ -1,12 +1,10 @@
-﻿
-@{
-    ViewData["Title"] = "Appointment";
-}
-
+﻿@using Hospital_Mangment_System_BLL.View_model.DoctorVM
 
 @{
     ViewData["Title"] = "Appointment";
+    int x = 3;
 }
+@model List<GetAllDoctorVM>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -110,9 +108,131 @@
                         <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Appointment</h5>
                         <h1 class="display-4">Make An Appointment For Your Family</h1>
                     </div>
-                    <p class="mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
-                    <a class="btn btn-primary rounded-pill py-3 px-5 me-3" href="">Find Doctor</a>
+                    <p class="mb-5">Eirmod sed tempor lorem ut dolores...</p>
+                    <a class="btn btn-primary rounded-pill py-3 px-5 me-3" href="/Doctor/GetAllDoctors">Find Doctor</a>
                     <a class="btn btn-outline-primary rounded-pill py-3 px-5" href="">Read More</a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="bg-light text-center rounded p-5">
+                        <h1 class="mb-4">Book An Appointment</h1>
+                        <form id="appointmentForm">
+                            <div class="row g-3">
+                                <div class="col-12 col-sm-6">
+                                    <select class="form-select bg-white border-0" style="height: 55px;" id="department" required>
+                                        <option value="">Choose Department</option>
+                                        <option value="3">Cardiology</option>
+                                        <option value="4">Orthopedics</option>
+                                        <option value="5">Pediatrics</option>
+                                        <option value="6">Neurology</option>
+                                        <option value="7">Dermatology</option>
+                                        <option value="8">General Surgery</option>
+                                        <option value="9">Ophthalmology</option>
+                                        <option value="10">Obstetrics and Gynecology</option>
+                                        <option value="11">Radiology</option>
+                                        <option value="12">Oncology</option>
+                                       
+                                    </select>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <select class="form-select bg-white border-0" style="height: 55px;" id="doctor" required>
+                                        <option value="">Select Doctor</option>
+                                        <option value="1">Ahmed Abdelnaser</option>
+                                        <option value="2">Mohamed Essam</option>
+                                        <option value="3">HamzaMohamed</option>
+                                        <option value="4">Mohamed Abasiouny</option>
+                                        <option value="5">Mona Ashraf</option>
+                                        <option value="6">Ahmed Samir</option>
+                                        <option value="7">Eman Donia</option>
+                                        
+                                    </select>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="text" class="form-control bg-white border-0" id="name" placeholder="Your Name" style="height: 55px;" required pattern="[A-Za-z\s]+" title="Name should only contain letters.">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="email" class="form-control bg-white border-0" id="email" placeholder="Your Email" style="height: 55px;" required>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="text" class="form-control bg-white border-0 datetimepicker-input" id="date" placeholder="Date" style="height: 55px;" required>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="text" class="form-control bg-white border-0 datetimepicker-input" id="time" placeholder="Time" style="height: 55px;" required>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Make An Appointment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('appointmentForm').addEventListener('submit', function(event) {
+            var isValid = true;
+
+            // Department validation
+            var department = document.getElementById('department');
+            if (department.value === "") {
+                alert("Please select a department.");
+                isValid = false;
+            }
+
+            // Doctor validation
+            var doctor = document.getElementById('doctor');
+            if (doctor.value === "") {
+                alert("Please select a doctor.");
+                isValid = false;
+            }
+
+            // Name validation
+            var name = document.getElementById('name');
+            if (!name.checkValidity()) {
+                alert(name.validationMessage);
+                isValid = false;
+            }
+
+            // Email validation
+            var email = document.getElementById('email');
+            if (!email.checkValidity()) {
+                alert(email.validationMessage);
+                isValid = false;
+            }
+
+            // Date validation
+            var date = document.getElementById('date');
+            if (date.value === "") {
+                alert("Please select a date.");
+                isValid = false;
+            }
+
+            // Time validation
+            var time = document.getElementById('time');
+            if (time.value === "") {
+                alert("Please select a time.");
+                isValid = false;
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
+ @*    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row gx-5">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="mb-4">
+                        <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Appointment</h5>
+                        <h1 class="display-4">Make An Appointment For Your Family</h1>
+                    </div>
+                    <p class="mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
+                    <a class="btn btn-primary rounded-pill py-3 px-5 me-3" href="/Doctor/GetAllDoctors">Find Doctor</a>
+                    <a class="btn btn-outline-primary rounded-pill py-3 px-5" href="">Read More</a>
+
                 </div>
                 <div class="col-lg-6">
                     <div class="bg-light text-center rounded p-5">
@@ -121,18 +241,29 @@
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">
                                     <select class="form-select bg-white border-0" style="height: 55px;">
-                                        <option selected>Choose Department</option>
-                                        <option value="1">Department 1</option>
-                                        <option value="2">Department 2</option>
-                                        <option value="3">Department 3</option>
+                                        <option value="">Choose Department</option>
+                                        <option value="3">Cardiology</option>
+                                        <option value="4">Orthopedics</option>
+                                        <option value="5">Pediatrics</option>
+                                        <option value="6">Neurology</option>
+                                        <option value="7">Dermatology</option>
+                                        <option value="8">General Surgery</option>
+                                        <option value="9">Ophthalmology</option>
+                                        <option value="10">Obstetrics and Gynecology</option>
+                                        <option value="11">Radiology</option>
+                                        <option value="12">Oncology</option>
                                     </select>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <select class="form-select bg-white border-0" style="height: 55px;">
                                         <option selected>Select Doctor</option>
-                                        <option value="1">Doctor 1</option>
-                                        <option value="2">Doctor 2</option>
-                                        <option value="3">Doctor 3</option>
+                                        <option value="1">Ahmed Abdelnaser</option>
+                                        <option value="2">Mohamed Essam</option>
+                                        <option value="3">HamzaMohamed</option>
+                                        <option value="4">Mohamed Abasiouny</option>
+                                        <option value="5">Mona Ashraf</option>
+                                        <option value="6">Ahmed Samir</option>
+                                        <option value="7">Eman Donia</option>
                                     </select>
                                 </div>
                                 <div class="col-12 col-sm-6">
@@ -164,7 +295,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> *@
     <!-- Appointment End -->
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light mt-5 py-5">

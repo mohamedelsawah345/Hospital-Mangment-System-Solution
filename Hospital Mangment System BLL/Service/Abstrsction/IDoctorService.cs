@@ -11,5 +11,6 @@ namespace Hospital_Mangment_System_BLL.Service.Abstrsction
         Task<List<GetAllDoctorVM>> GetAllAsync();
         Task<GetDoctorByIdVM> GetByIdAsync(string id);
         Task<bool> UpdateAsync(UpdateDoctorVM doctorvm);
+        Task<bool> IsUsernameUnique(string username);
     }
 }

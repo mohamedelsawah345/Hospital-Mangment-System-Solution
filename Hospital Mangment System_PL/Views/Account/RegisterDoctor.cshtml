@@ -19,41 +19,59 @@
                 <h2 class="text-center text-primary mb-4">Register Doctor</h2>
 
                 <!-- Registration Form -->
-                <form method="post" action="@Url.Action("RegisterDoctor", "Account")" novalidate>
+                <form method="post" action="@Url.Action("RegisterDoctor", "Account")" novalidate onsubmit="return validateForm()">
                     <!-- User Name Field -->
                     <div class="form-floating mb-3">
                         <input asp-for="UserName" class="form-control" id="floatingUserName" placeholder="User Name" required>
                         <label for="floatingUserName">User Name</label>
+                        <div class="invalid-feedback">Please enter your user name.</div>
                     </div>
 
                     <!-- Email Field -->
                     <div class="form-floating mb-3">
                         <input asp-for="Email" type="email" class="form-control" id="floatingEmail" placeholder="Email Address" required>
                         <label for="floatingEmail">Email</label>
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
                     </div>
 
                     <!-- Password Field -->
                     <div class="form-floating mb-3">
-                        <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                        <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Password" required minlength="6">
                         <label for="floatingPassword">Password</label>
+                        <div class="invalid-feedback">Password must be at least 6 characters long.</div>
                     </div>
 
                     <!-- Phone Field -->
                     <div class="form-floating mb-3">
-                        <input asp-for="Phone" type="tel" class="form-control" id="floatingPhone" placeholder="Phone Number" required>
+                        <input asp-for="Phone" type="tel" class="form-control" id="floatingPhone" placeholder="Phone Number" required pattern="\d{10}">
                         <label for="floatingPhone">Phone</label>
+                        <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
                     </div>
 
                     <!-- Speciality Field -->
                     <div class="form-floating mb-3">
                         <input asp-for="Speciality" class="form-control" id="floatingSpeciality" placeholder="Speciality" required>
                         <label for="floatingSpeciality">Speciality</label>
+                        <div class="invalid-feedback">Please enter your speciality.</div>
                     </div>
 
-                    <!-- Department Id Field -->
+                    <!-- Department Dropdown -->
                     <div class="form-floating mb-3">
-                        <input asp-for="DepartmentId" type="number" class="form-control" id="floatingDepartmentId" placeholder="Department Id" required>
-                        <label for="floatingDepartmentId">Department Id</label>
+                        <select asp-for="DepartmentId" class="form-select" id="floatingDepartmentId" required>
+                            <option value="">Choose Department</option>
+                            <option value="3">Cardiology</option>
+                            <option value="4">Orthopedics</option>
+                            <option value="5">Pediatrics</option>
+                            <option value="6">Neurology</option>
+                            <option value="7">Dermatology</option>
+                            <option value="8">General Surgery</option>
+                            <option value="9">Ophthalmology</option>
+                            <option value="10">Obstetrics and Gynecology</option>
+                            <option value="11">Radiology</option>
+                            <option value="12">Oncology</option>
+                        </select>
+                        <label for="floatingDepartmentId">Department</label>
+                        <div class="invalid-feedback">Please select a department.</div>
                     </div>
 
                     <!-- Register Button -->
@@ -73,74 +91,16 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript for Validation -->
+    <script>
+        function validateForm() {
+            var form = document.querySelector('form');
+            if (form.checkValidity() === false) {
+                form.classList.add('was-validated');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 </html>
-
-
-@*
-    BackUP
-    .....
-@using Hospital_Mangment_System_BLL.View_model.AuthenticationVM
-@model RegisterVM
-@{
-    ViewData["Title"] = "Register Doctor";
-}
-
-<h2>@ViewData["Title"]</h2>
-
-<form asp-action="RegisterDoctor" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="UserName"></label>
-        <input asp-for="UserName" class="form-control" />
-        <span asp-validation-for="UserName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    
-
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-
-   @*  <div class="form-group">
-        <label asp-for="ConfirmPassword"></label>
-        <input asp-for="ConfirmPassword" class="form-control" />
-        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-    </div> 
-
-    <div class="form-group">
-        <label asp-for="Phone"></label>
-        <input asp-for="Phone" class="form-control" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Speciality"></label>
-        <input asp-for="Speciality" class="form-control" />
-        <span asp-validation-for="Speciality" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="DepartmentId"></label>
-        <input asp-for="DepartmentId" class="form-control" />
-        <span asp-validation-for="DepartmentId" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
-
-<a asp-action="Login">Already have an account? Login</a>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
-
-*@

@@ -14,5 +14,7 @@ namespace Hospital_Mangment_System_DAL.Repositary.Abstraction
         Task<List<Doctor>> GetAllAsync();
         Task<Doctor> GetByIdAsync(string id); 
         Task<bool> UpdateAsync(Doctor doctor);
+        Task<bool> IsUsernameUnique(string username);
+
     }
 }

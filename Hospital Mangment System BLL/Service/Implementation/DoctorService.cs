@@ -5,6 +5,7 @@ using Hospital_Mangment_System_BLL.View_model.patientVM;
 using Hospital_Mangment_System_DAL.Entites;
 using Hospital_Mangment_System_DAL.Repositary.Abstraction;
 using Hospital_Mangment_System_DAL.Repositary.Implementation;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,11 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             var result = await _DoctorRepo.GetByIdAsync(id); 
             var newData = _mapper.Map<GetDoctorByIdVM>(result);
             return newData;
+        }
+
+        public async Task<bool> IsUsernameUnique(string username)
+        {
+            return !await _DoctorRepo.IsUsernameUnique(username);
         }
 
         public async Task<bool> UpdateAsync(UpdateDoctorVM doctorvm)

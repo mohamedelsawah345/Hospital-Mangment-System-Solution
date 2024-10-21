@@ -1,6 +1,7 @@
 ﻿using Hospital_Mangment_System_BLL.Service.Abstrsction;
 using Hospital_Mangment_System_BLL.View_model.DoctorVM;
 using Hospital_Mangment_System_BLL.View_model.patientVM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_Mangment_System_PL.Controllers
@@ -18,7 +19,7 @@ namespace Hospital_Mangment_System_PL.Controllers
         {
             return View();
         }
-
+        [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> GetAllDoctors()
         {
             var result = await _doctorService.GetAllAsync();

@@ -4,14 +4,13 @@
     ViewData["Title"] = "GetDepartmentById";
 }
 @model GetDepartmentByIdVM
-
-
-
-<h1>Id is @Model.Dnum  </h1>
-<h1>Name is @Model.Dname  </h1>
-<h1>Gender is @Model.Location  </h1>
-
-
-
-
-
+@if (Model != null)
+{
+    ViewData["Title"] = "GetDepartmentById";
+    <h1>@Model.Dname</h1>
+    <p>@Model.DoctorName</p>
+}
+else
+{
+    <p>Department not found.</p>
+}

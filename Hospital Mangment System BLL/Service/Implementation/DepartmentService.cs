@@ -56,6 +56,9 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
         public GetDepartmentByIdVM getbyId(int id)
         {
             var result = _DepartmentRepo.getbyId(id);
+            if (result == null) {
+                return null;
+            }
             var newdata = _mapper.Map<GetDepartmentByIdVM>(result);
 
             return newdata;
