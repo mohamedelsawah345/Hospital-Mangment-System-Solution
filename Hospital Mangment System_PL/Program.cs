@@ -94,7 +94,7 @@ namespace Hospital_Mangment_System_PL
             builder.Services.AddScoped<IDoctorRepo, DoctorRepo>();
             builder.Services.AddScoped<IDoctorService, DoctorService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
-
+            builder.Services.AddScoped<IAdminService, AdminService>();
             // Add AutoMapper for object mapping
             builder.Services.AddAutoMapper(x => x.AddProfile(new MyProfile()));
             //add session to show user name afterlogin
@@ -132,13 +132,14 @@ namespace Hospital_Mangment_System_PL
         // Ensure roles exist
         private static async Task CreateRoles(RoleManager<IdentityRole> roleManager)
         {
-            string[] roleNames = { "Doctor", "Nurse", "Patient" };
+            string[] roleNames = { "Doctor", "Nurse", "Patient" , "Admin" };
             foreach (var roleName in roleNames)
             {
                 if (!await roleManager.RoleExistsAsync(roleName))
                 {
                     await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
+               
             }
         }
     }

@@ -84,11 +84,24 @@ namespace Hospital_Mangment_System_DAL.DB
                  .WithMany(a => a.Doctors)
                  .HasForeignKey(a => a.Dnum)
                  .OnDelete(DeleteBehavior.NoAction);
-
-
         }
 
+            public override int SaveChanges()
+        {
+            var entries = ChangeTracker.Entries()
+                .Where(e => e.Entity is ApplicationUser && e.State == EntityState.Deleted);
 
+            foreach (var entry in entries)
+            {
+                entry.State = EntityState.Modified;
+                ((ApplicationUser)entry.Entity).IsDeleted = true;
+            }
+
+            return base.SaveChanges();
+        }
     }
 
+
 }
+
+
