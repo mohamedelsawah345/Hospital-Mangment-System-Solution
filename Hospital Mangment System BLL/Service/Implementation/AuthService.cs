@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using Hospital_Mangment_System_BLL.Helper;
 using Hospital_Mangment_System_BLL.Service.Abstrsction;
 using Hospital_Mangment_System_BLL.View_model.AuthenticationVM;
 using Hospital_Mangment_System_DAL.DB;
@@ -19,6 +20,8 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
         private readonly INurseRepo _nurseRepo;
         private readonly IPatientsRepo _patientRepo;
         private readonly IEmailSender _emailSender;
+
+        public string Imagepath { get; private set; }
 
         public AuthService(
             UserManager<ApplicationUser> userManager,
@@ -45,7 +48,9 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
                 Email = model.Email,
                 Phone = model.Phone,
                 PhoneNumber = model.Phone,
+                Imagepath = Upload.UploadFile("Profile", model.Image),
                 Role_Type = "Doctor"
+
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -78,6 +83,7 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
                 Email = model.Email,
                 Phone = model.Phone,
                 PhoneNumber = model.Phone,
+                Imagepath = Upload.UploadFile("Profile", model.Image),
                 Role_Type = "Nurse"
             };
 
@@ -110,6 +116,7 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
                 Email = model.Email,
                 Phone = model.Phone,
                 PhoneNumber = model.Phone,
+                Imagepath = Upload.UploadFile("Profile", model.Image),
                 Role_Type = "Patient"
             };
 

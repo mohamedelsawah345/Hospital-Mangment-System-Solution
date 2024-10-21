@@ -19,7 +19,7 @@
                 <h2 class="text-center text-primary mb-4">Register Doctor</h2>
 
                 <!-- Registration Form -->
-                <form method="post" action="@Url.Action("RegisterDoctor", "Account")" novalidate onsubmit="return validateForm()">
+                <form method="post" action="@Url.Action("RegisterDoctor", "Account")" novalidate onsubmit="return validateForm()" enctype="multipart/form-data">
                     <!-- User Name Field -->
                     <div class="form-floating mb-3">
                         <input asp-for="UserName" class="form-control" id="floatingUserName" placeholder="User Name" required>
@@ -47,6 +47,11 @@
                         <label for="floatingPhone">Phone</label>
                         <div class="invalid-feedback">Please enter a valid 11-digit phone number.</div>
                     </div>
+                    <div class="mb-3">
+                        <label for="Image" class="form-label">Image</label>
+                        <input asp-for=Image type="file" class="form-control" id="Image" placeholder="Enter Image">
+                    </div>
+
 
                     <!-- Speciality Field -->
                     <div class="form-floating mb-3">

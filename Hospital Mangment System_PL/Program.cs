@@ -97,6 +97,8 @@ namespace Hospital_Mangment_System_PL
 
             // Add AutoMapper for object mapping
             builder.Services.AddAutoMapper(x => x.AddProfile(new MyProfile()));
+            //add session to show user name afterlogin
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -107,6 +109,7 @@ namespace Hospital_Mangment_System_PL
             }
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseSession();
 
             // Authentication & Authorization middleware
             app.UseAuthentication();

@@ -19,7 +19,7 @@
                 <h2 class="text-center text-primary mb-4">Register Nurse</h2>
 
                 <!-- Registration Form -->
-                <form method="post" action="@Url.Action("RegisterNurse", "Account")" novalidate>
+                <form method="post" action="@Url.Action("RegisterNurse", "Account")" novalidate enctype="multipart/form-data">
                     <div asp-validation-summary="All" class="text-danger"></div>
 
                     <!-- User Name Field -->
@@ -48,6 +48,10 @@
                         <input asp-for="Phone" type="tel" class="form-control" id="floatingPhone" placeholder="Phone Number" required>
                         <label for="floatingPhone">Phone</label>
                         <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Image" class="form-label">Image</label>
+                        <input asp-for=Image type="file" class="form-control" id="Image" placeholder="Enter Image">
                     </div>
 
                     <!-- Department Dropdown -->

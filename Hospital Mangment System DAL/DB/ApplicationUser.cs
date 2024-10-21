@@ -14,6 +14,7 @@ namespace Hospital_Mangment_System_DAL.DB
 
         public string Role_Type { get; set; } //(Doctor,nurse,patient)
         public string Phone { get; set; }
+        public string? Imagepath { get; set; }
         // relations 
         public virtual Nurse Nurse { get; set; }
         public virtual Doctor Doctor { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,8 @@ namespace Hospital_Mangment_System_BLL.View_model.AuthenticationVM
         public int? DepartmentId { get; set; } // For Doctor and Nurse
         public DateOnly? Birthday { get; set; } // For Patient
         public char Gender { get; set; } // For Patient
+        public string? Imagepath { get; set; }
+        public IFormFile Image { get; set; }
+
     }
 }

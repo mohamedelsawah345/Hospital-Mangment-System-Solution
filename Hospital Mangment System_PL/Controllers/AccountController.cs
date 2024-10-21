@@ -104,6 +104,7 @@ namespace Hospital_Mangment_System_PL.Controllers
                 var result = await _authService.LoginAsync(model);
                 if (result == "Login successful")
                 {
+                    HttpContext.Session.SetString("Username", model.Email);
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", result);

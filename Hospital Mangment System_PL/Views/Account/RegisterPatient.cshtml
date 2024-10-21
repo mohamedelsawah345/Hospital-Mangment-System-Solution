@@ -19,7 +19,7 @@
                 <h2 class="text-center text-primary mb-4">Register Patient</h2>
 
                 <!-- Registration Form -->
-                <form method="post" action="@Url.Action("RegisterPatient", "Account")" novalidate>
+                <form method="post" action="@Url.Action("RegisterPatient", "Account")" novalidate enctype="multipart/form-data" >
                     <div asp-validation-summary="All" class="text-danger"></div>
 
                     <!-- User Name Field -->
@@ -62,6 +62,10 @@
                         <input asp-for="Birthday" type="date" class="form-control" id="floatingBirthday" required>
                         <label for="floatingBirthday">Birthday</label>
                         <span asp-validation-for="Birthday" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Image" class="form-label">Image</label>
+                        <input asp-for=Image type="file" class="form-control" id="Image" placeholder="Enter Image">
                     </div>
 
                     <!-- Gender Field -->

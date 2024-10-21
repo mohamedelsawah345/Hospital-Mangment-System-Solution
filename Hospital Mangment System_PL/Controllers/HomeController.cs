@@ -18,7 +18,11 @@ namespace Hospital_Mangment_System_PL.Controllers
 
         public IActionResult Index()
         {
+            var username = HttpContext.Session.GetString("Username"); // «” —Ã«⁄ «”„ «·„” Œœ„ „‰ Session
+            ViewBag.Username = username; //  „—Ì— «”„ «·„” Œœ„ ≈·Ï «·‹ View »«” Œœ«„ ViewBag
             return View();
+
+           
         }
 
         public IActionResult Privacy()
