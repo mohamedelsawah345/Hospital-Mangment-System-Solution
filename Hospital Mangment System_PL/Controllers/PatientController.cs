@@ -2,6 +2,7 @@
 using Hospital_Mangment_System_BLL.Service.Implementation;
 using Hospital_Mangment_System_BLL.View_model.patientVM;
 using Hospital_Mangment_System_DAL.Entites;
+using Hospital_Mangment_System_BLL.Service.Abstrsction;
 namespace Hospital_Mangment_System_PL.Controllers
 {
     public class PatientController : Controller
@@ -49,8 +50,8 @@ namespace Hospital_Mangment_System_PL.Controllers
 
         public async Task<IActionResult> DeletePatient(string id)
         {
-            await _patientService.DeleteAsync(id); 
-            return RedirectToAction("GetAllPatient");
+            await _patientService.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]

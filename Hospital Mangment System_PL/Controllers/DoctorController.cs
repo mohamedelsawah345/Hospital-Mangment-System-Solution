@@ -57,7 +57,7 @@ namespace Hospital_Mangment_System_PL.Controllers
         public async Task<IActionResult> DeleteDoctor(string id)
         {
             await _doctorService.DeleteAsync(id);
-            return RedirectToAction("GetAllDoctors");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]

@@ -16,7 +16,6 @@ namespace Hospital_Mangment_System_DAL.Entites
         public string ApplicationUserId { get; set; } // Foreign key for ApplicationUser
         public virtual ApplicationUser ApplicationUser { get; set; }
         public string Phone { get; set; }
-        public bool IsDeleted { get; set; } = false;
         public DateOnly birthday { get; set; }
         public char Gender { get; set; }
         public List<Bill>? Bills { get; set; }

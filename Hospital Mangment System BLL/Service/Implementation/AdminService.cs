@@ -26,23 +26,18 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
 
         public async Task<IEnumerable<AdminUserViewModel>> GetAllUsersAsync()
         {
-            var users = _userManager.Users.ToList();
-            var userViewModels = new List<AdminUserViewModel>();
+            var users = await dbContext.Users
+        .Select(user => new AdminUserViewModel
+        {
+            Id = user.Id,
+            UserName = user.UserName,
+            Email = user.Email,
+            Role = user.Role_Type,
+            IsLockedOut = user.LockoutEnd != null && user.LockoutEnd > DateTime.UtcNow,
+            IsDeleted = user.IsDeleted // Make sure IsDeleted is included in the view model
+        }).ToListAsync();
 
-            foreach (var user in users)
-            {
-                var roles = await _userManager.GetRolesAsync(user);
-                userViewModels.Add(new AdminUserViewModel
-                {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Role = roles.FirstOrDefault(),
-                    IsLockedOut = await _userManager.IsLockedOutAsync(user)
-                });
-            }
-
-            return userViewModels;
+            return users;
         }
 
         public async Task<AdminUserViewModel> GetUserByIdAsync(string userId)
@@ -67,70 +62,45 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             var user = await _userManager.FindByIdAsync(model.Id);
             if (user == null) return false;
 
-            user.UserName = model.UserName;
             user.Email = model.Email;
-
-            var result = await _userManager.UpdateAsync(user);
-            if (!result.Succeeded) return false;
+            user.UserName = model.UserName;
 
             var currentRoles = await _userManager.GetRolesAsync(user);
-            if (currentRoles.Any())
-            {
-                await _userManager.RemoveFromRolesAsync(user, currentRoles);
-            }
-            await _userManager.AddToRoleAsync(user, model.Role);
+            await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            var addRoleResult = await _userManager.AddToRoleAsync(user, model.Role);
 
-            return true;
+            if (!addRoleResult.Succeeded)
+            {
+                // Log errors from adding role
+                var errors = addRoleResult.Errors.Select(e => e.Description);
+                // Optionally log these errors
+            }
+
+            var result = await _userManager.UpdateAsync(user);
+            return result.Succeeded;
         }
 
-        public async Task<bool> SoftDeleteUserWithRelatedEntitiesAsync(string userId)
+        public async Task<bool> DeleteUserAsync(string userId)
         {
-            // Get related doctor records
-            var doctors = await dbContext.Doctors
-                .Where(d => d.ApplicationUserId == userId)
-                .ToListAsync();
-
-            // Mark related doctors as deleted
-            foreach (var doctor in doctors)
+            try
             {
-                doctor.IsDeleted = true;
-            }
+                var user = await dbContext.Users
+                    .FirstOrDefaultAsync(u => u.Id == userId);
 
-            // Get related nurse records
-            var nurses = await dbContext.nurses
-                .Where(n => n.ApplicationUserId == userId)
-                .ToListAsync();
+                if (user == null) return false;
 
-            // Mark related nurses as deleted
-            foreach (var nurse in nurses)
-            {
-                nurse.IsDeleted = true;
-            }
-
-            // Get related patient records
-            var patients = await dbContext.patients
-                .Where(p => p.ApplicationUserId == userId)
-                .ToListAsync();
-
-            // Mark related patients as deleted
-            foreach (var patient in patients)
-            {
-                patient.IsDeleted = true;
-            }
-
-            // Save changes to mark records as deleted
-            await dbContext.SaveChangesAsync();
-
-            // Now mark the user as deleted
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user != null)
-            {
+                // Set IsDeleted to true in ApplicationUser
                 user.IsDeleted = true;
-                var result = await _userManager.UpdateAsync(user);
-                return result.Succeeded; // Return whether the user deletion was successful
-            }
 
-            return false; // User not found
+                dbContext.Users.Update(user);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting user: {ex.Message}");
+                return false;
+            }
         }
 
         public async Task<bool> LockUnlockUserAsync(string userId, bool lockUser)

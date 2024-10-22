@@ -39,19 +39,18 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
             try
             {
-                var result = await _DBcontext.patients.Where(d => d.ApplicationUserId == id).FirstOrDefaultAsync();
-
-                if (result != null)
+                var user = await _DBcontext.Users.FindAsync(id);
+                if (user != null)
                 {
-                    result.IsDeleted = true;
+                    user.IsDeleted = true;
                     await _DBcontext.SaveChangesAsync();
                     return true;
                 }
-                return false; // Patient not found
+                return false;
             }
             catch (Exception ex)
             {
-                // Log the exception (optional)
+                Console.WriteLine($"Error deleting user: {ex.Message}");
                 return false;
             }
         }
@@ -60,7 +59,10 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
             try
             {
-                return await _DBcontext.patients.Where(p => p.IsDeleted != true).ToListAsync();
+                return await _DBcontext.patients
+            .Include(d => d.ApplicationUser)
+            .Where(d => !d.ApplicationUser.IsDeleted) // Ensure only non-deleted users
+            .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -73,7 +75,9 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
             try
             {
-                return await _DBcontext.patients.Where(d => d.ApplicationUserId == id).FirstOrDefaultAsync();
+                return await _DBcontext.patients
+             .Include(d => d.ApplicationUser)
+             .FirstOrDefaultAsync(d => d.ApplicationUserId == id && !d.ApplicationUser.IsDeleted);
             }
             catch (Exception ex)
             {

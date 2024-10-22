@@ -40,19 +40,19 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
             try
             {
-                var nurse = await _DBcontext.nurses.FirstOrDefaultAsync(n => n.ApplicationUserId == nurseId);
-                if (nurse != null)
+                var user = await _DBcontext.Users.FindAsync(nurseId);
+                if (user != null)
                 {
-                    nurse.IsDeleted = true;
+                    user.IsDeleted = true;  
                     await _DBcontext.SaveChangesAsync();
-                    return true;
+                    return true; 
                 }
-                return false;
+                return false;  
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting nurse: {ex.Message}");
-                return false;
+                Console.WriteLine($"Error deleting user: {ex.Message}");
+                return false;  
             }
         }
         // Get all Nurses
@@ -60,7 +60,10 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
             try
             {
-                return await _DBcontext.nurses.Include(n => n.Department).Where(p => !p.IsDeleted).ToListAsync();
+                return await _DBcontext.nurses
+            .Include(d => d.ApplicationUser)
+            .Where(d => !d.ApplicationUser.IsDeleted) // Ensure only non-deleted users
+            .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -74,7 +77,10 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
             try
             {
-                return await _DBcontext.nurses.Include(n => n.Department).FirstOrDefaultAsync(n => n.ApplicationUserId == nurseId);
+                return await _DBcontext.nurses
+            .Include(d => d.ApplicationUser)
+            .FirstOrDefaultAsync(d => d.ApplicationUserId == nurseId && !d.ApplicationUser.IsDeleted);
+
             }
             catch (Exception ex)
             {
