@@ -1,16 +1,11 @@
-﻿@using Hospital_Mangment_System_BLL.View_model.Admin
-@model IEnumerable<AdminUserViewModel>
-
-<h2>Manage Users</h2>
-
-<table class="table">
+﻿<table class="table">
     <thead>
         <tr>
             <th>Username</th>
             <th>Email</th>
             <th>Role</th>
             <th>Locked</th>
-            <th>Is Deleted</th> <!-- New Column for Is Deleted Status -->
+            <th>Deleted</th> <!-- New column for IsDeleted -->
             <th>Actions</th>
         </tr>
     </thead>
@@ -23,25 +18,25 @@
                 <td>@user.Role</td>
                 <td>@user.IsLockedOut</td>
                 <td>
-                    @if (user.IsDeleted) // Check if the user is marked as deleted
+                    @if (user.IsDeleted)
                     {
-                        <span class="text-danger">Yes</span> <!-- Show "Yes" if deleted -->
+                        <span style="color:red;">Deleted</span>
                     }
                     else
                     {
-                        <span class="text-success">No</span> <!-- Show "No" if not deleted -->
+                        <span>Active</span>
                     }
                 </td>
                 <td>
-                    <a href="@Url.Action("EditUser", new { id = user.Id })" class="btn btn-primary">Edit</a>
-                    <form asp-action="SoftDelete" method="post" style="display:inline;">
-                        <input type="hidden" name="userId" value="@user.Id" />
+                    <form asp-action="DeleteUser" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@user.Id" />  <!-- Adjusted to match your parameter name -->
                         <button type="submit" class="btn btn-danger"
-                                onclick="return confirm('Are you sure you want to soft delete this user?');"
-                        @(user.IsDeleted ? "disabled" : "")>
+                                onclick="return confirm('Are you sure you want to delete this user?');">
                             Delete
                         </button>
                     </form>
+
+                  
                     <a href="@Url.Action("LockUnlockUser", new { id = user.Id, lockUser = !user.IsLockedOut })" class="btn btn-warning">
                         @(user.IsLockedOut ? "Unlock" : "Lock")
                     </a>

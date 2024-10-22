@@ -12,7 +12,7 @@ namespace Hospital_Mangment_System_BLL.Service.Abstrsction
         Task<IEnumerable<AdminUserViewModel>> GetAllUsersAsync();
         Task<AdminUserViewModel> GetUserByIdAsync(string userId);
         Task<bool> UpdateUserAsync(AdminUserViewModel model);
-        Task<bool> SoftDeleteUserWithRelatedEntitiesAsync(string userId);
+        Task<bool> DeleteUserAsync(string userId);
         Task<bool> LockUnlockUserAsync(string userId, bool lockUser);
         Task<bool> AssignRoleToUserAsync(string userId, string roleName);
     }

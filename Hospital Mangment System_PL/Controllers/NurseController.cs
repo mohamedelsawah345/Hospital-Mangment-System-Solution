@@ -1,4 +1,5 @@
 ﻿using Hospital_Mangment_System_BLL.Service.Abstrsction;
+using Hospital_Mangment_System_BLL.Service.Implementation;
 using Hospital_Mangment_System_BLL.View_model.DepartmentVM;
 using Hospital_Mangment_System_BLL.View_model.NurseVM;
 using Hospital_Mangment_System_DAL.Entites;
@@ -51,8 +52,8 @@ namespace Hospital_Mangment_System_PL.Controllers
 
         public async Task<IActionResult> DeleteNurse(string id)
         {
-            await _nurseService.DeleteAsync(id); 
-            return RedirectToAction("GetAllNurses");
+            await _nurseService.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]

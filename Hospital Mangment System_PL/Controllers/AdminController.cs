@@ -18,8 +18,8 @@ namespace Hospital_Mangment_System_PL.Controllers
         // View all users
         public async Task<IActionResult> ManageUsers()
         {
-            var users = await _adminService.GetAllUsersAsync();
-            return View(users);
+            var users = await _adminService.GetAllUsersAsync(); 
+            return View(users); ;
         }
 
         // Edit user
@@ -43,25 +43,24 @@ namespace Hospital_Mangment_System_PL.Controllers
             return View(model);
         }
 
+        [HttpPost]
         // Delete user
         [HttpPost]
-        public async Task<IActionResult> SoftDelete(string userId)
+        public async Task<IActionResult> DeleteUser(string id)
         {
-            if (string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("User ID is required.");
+                return BadRequest("User ID cannot be null or empty.");
             }
 
-            var result = await _adminService.SoftDeleteUserWithRelatedEntitiesAsync(userId);
+            var result = await _adminService.DeleteUserAsync(id);
             if (result)
             {
-                TempData["SuccessMessage"] = "User and related records marked as deleted successfully.";
                 return RedirectToAction("ManageUsers");
             }
             else
             {
-                TempData["ErrorMessage"] = "Failed to mark user as deleted.";
-                return RedirectToAction("ManageUsers");
+                return NotFound();  // Return 404 if the user is not found or deletion fails
             }
         }
 

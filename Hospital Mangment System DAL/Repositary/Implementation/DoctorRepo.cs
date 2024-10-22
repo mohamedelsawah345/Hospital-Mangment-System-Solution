@@ -35,23 +35,21 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
             try
             {
-                var result = await _DBcontext.Doctors
-                    .Where(d => d.ApplicationUserId == id)
-                    .FirstOrDefaultAsync(); 
-
-                if (result == null)
+                
+                var user = await _DBcontext.Users.FindAsync(id);
+                if (user != null)
                 {
-                    return false; 
+                    user.IsDeleted = true;
+                    await _DBcontext.SaveChangesAsync();
+                    return true;  
                 }
-
-                result.IsDeleted = true; 
-                await _DBcontext.SaveChangesAsync(); 
-                return true;
+                return false;  
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting doctor: {ex.Message}"); 
-                return false;
+                // Log the error (replace with proper logging in production)
+                Console.WriteLine($"Error deleting user: {ex.Message}");
+                return false;  // Return false if an exception occurred
             }
         }
 
@@ -61,8 +59,9 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
             try
             {
                 return await _DBcontext.Doctors
-                    .Where(p => p.IsDeleted != true)
-                    .ToListAsync(); 
+            .Include(d => d.ApplicationUser)
+            .Where(d => !d.ApplicationUser.IsDeleted) // Ensure only non-deleted users
+            .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -76,7 +75,9 @@ namespace Hospital_Mangment_System_DAL.Repositary.Implementation
         {
             try
             {
-                return await _DBcontext.Doctors.Where(p => p.ApplicationUserId == id).FirstOrDefaultAsync();
+                return await _DBcontext.Doctors
+            .Include(d => d.ApplicationUser)
+            .FirstOrDefaultAsync(d => d.ApplicationUserId == id && !d.ApplicationUser.IsDeleted);
             }
             catch (Exception ex)
             {
