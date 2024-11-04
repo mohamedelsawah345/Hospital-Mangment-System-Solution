@@ -1,0 +1,98 @@
+﻿@using Hospital_Mangment_System_BLL.View_model.AuthenticationVM
+@model RegisterVM
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Nurse</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="background: linear-gradient(90deg, #13C5DD 0%, #55b2b4 50%);">
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg" style="max-width: 500px; width: 100%;">
+            <div class="card-body p-4">
+                <!-- Register Nurse Heading -->
+                <h2 class="text-center text-primary mb-4">Register Nurse</h2>
+
+                <!-- Registration Form -->
+                <form method="post" action="@Url.Action("RegisterNurse", "Account")" novalidate enctype="multipart/form-data">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <!-- User Name Field -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="UserName" class="form-control" id="floatingUserName" placeholder="User Name" required>
+                        <label for="floatingUserName">User Name</label>
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" type="email" class="form-control" id="floatingEmail" placeholder="Email Address" required>
+                        <label for="floatingEmail">Email</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                        <label for="floatingPassword">Password</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Phone" type="tel" class="form-control" id="floatingPhone" placeholder="Phone Number" required>
+                        <label for="floatingPhone">Phone</label>
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Image" class="form-label">Image</label>
+                        <input asp-for=Image type="file" class="form-control" id="Image" placeholder="Enter Image">
+                    </div>
+
+                    <!-- Department Dropdown -->
+                    <div class="form-floating mb-3">
+                        <select asp-for="DepartmentId" class="form-select" id="floatingDepartmentId" required>
+                            <option value="" disabled selected>Choose Department</option>
+                            <option value="3">Cardiology</option>
+                            <option value="4">Orthopedics</option>
+                            <option value="5">Pediatrics</option>
+                            <option value="6">Neurology</option>
+                            <option value="7">Dermatology</option>
+                            <option value="8">General Surgery</option>
+                            <option value="9">Ophthalmology</option>
+                            <option value="10">Obstetrics and Gynecology</option>
+                            <option value="11">Radiology</option>
+                            <option value="12">Oncology</option>
+                        </select>
+                        <label for="floatingDepartmentId">Department</label>
+                        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                    </div>
+
+                    <!-- Register Button -->
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+
+                <!-- Divider -->
+                <hr class="my-4">
+
+                <!-- Already Have an Account Link -->
+                <div class="text-center">
+                    <p>Already have an account? <a href="@Url.Action("Login", "Account")" class="text-primary">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>
