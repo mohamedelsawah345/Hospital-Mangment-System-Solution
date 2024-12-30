@@ -1,4 +1,4 @@
-﻿@* @using Hospital_Mangment_System_BLL.View_model.DoctorVM
+﻿@using Hospital_Mangment_System_BLL.View_model.DoctorVM
 @model UpdateDoctorVM
 
 @{
@@ -10,15 +10,9 @@
 <form asp-action="UpdateDoctor" method="post">
     <input type="hidden" asp-for="Id" />
     <div class="form-group">
-        <label asp-for="FirstName" class="control-label"></label>
-        <input asp-for="FirstName" class="form-control" />
-        <span asp-validation-for="FirstName" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="LastName" class="control-label"></label>
-        <input asp-for="LastName" class="form-control" />
-        <span asp-validation-for="LastName" class="text-danger"></span>
+        <label asp-for="UserName" class="control-label"></label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -28,9 +22,9 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Specialization" class="control-label"></label>
-        <input asp-for="Specialization" class="form-control" />
-        <span asp-validation-for="Specialization" class="text-danger"></span>
+        <label asp-for="Speciality" class="control-label"></label>
+        <input asp-for="Speciality" class="form-control" />
+        <span asp-validation-for="Speciality" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -43,4 +37,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
- *@

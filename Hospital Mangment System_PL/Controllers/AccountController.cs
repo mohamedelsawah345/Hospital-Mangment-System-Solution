@@ -1,5 +1,8 @@
 ﻿using Hospital_Mangment_System_BLL.Service.Abstrsction;
+using Hospital_Mangment_System_BLL.Service.Implementation;
 using Hospital_Mangment_System_BLL.View_model.AuthenticationVM;
+using Hospital_Mangment_System_DAL.Entites;
+using Hospital_Mangment_System_DAL.Repositary.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_Mangment_System_PL.Controllers
@@ -7,10 +10,12 @@ namespace Hospital_Mangment_System_PL.Controllers
     public class AccountController : Controller
     {
         private readonly IAuthService _authService;
+        private readonly IDepartmentRepo departmentRepo;
 
-        public AccountController(IAuthService authService)
+        public AccountController(IAuthService authService, IDepartmentRepo departmentRepo)
         {
             _authService = authService;
+            this.departmentRepo = departmentRepo;
         }
 
         // Register
@@ -23,6 +28,8 @@ namespace Hospital_Mangment_System_PL.Controllers
         [HttpGet]
         public IActionResult RegisterDoctor()
         {
+            var departments = departmentRepo.getAll(); // Returns a list of departments
+            ViewBag.Departments = departments;
             return View();
         }
         
@@ -40,6 +47,7 @@ namespace Hospital_Mangment_System_PL.Controllers
                 }
                 ModelState.AddModelError("", "Registration failed");
             }
+            ViewBag.Departments = departmentRepo.getAll();
             return View(model);
         }
 
@@ -110,6 +118,21 @@ namespace Hospital_Mangment_System_PL.Controllers
                 ModelState.AddModelError("", result);
             }
             return View(model);
+        }
+        public async Task<IActionResult> SignOut()
+        {
+            try
+            {
+                await _authService.SignOutAsync(); // Await the async sign-out operation
+                HttpContext.Session.Remove("Username"); // Optional: Remove the username from session
+                return RedirectToAction("Index", "Home"); // Redirect to Home after sign-out
+            }
+            catch
+            {
+                // Optionally log the error and return error message
+                ModelState.AddModelError("", "An error occurred while signing out.");
+                return RedirectToAction("Index", "Home");
+            }
         }
 
     }

@@ -1,10 +1,18 @@
-﻿@using Hospital_Mangment_System_BLL.View_model.DoctorVM
+﻿@using Azure
+@{
+    if (User.IsInRole("Admin"))
+    {
+        Context.Response.Redirect(Url.Action("ManageUsers", "Admin"));
+    }
+}
+@using Hospital_Mangment_System_BLL.View_model.DepartmentVM
+@using Hospital_Mangment_System_BLL.View_model.DoctorVM
 
 @{
     ViewData["Title"] = "Appointment";
     int x = 3;
 }
-@model List<GetAllDoctorVM>
+@model List<GetAllDepartmentsVM>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -120,29 +128,41 @@
                                 <div class="col-12 col-sm-6">
                                     <select class="form-select bg-white border-0" style="height: 55px;" id="department" required>
                                         <option value="" disabled selected>Choose Department</option>
-                                        <option value="3">Cardiology</option>
-                                        <option value="4">Orthopedics</option>
-                                        <option value="5">Pediatrics</option>
-                                        <option value="6">Neurology</option>
-                                        <option value="7">Dermatology</option>
-                                        <option value="8">General Surgery</option>
-                                        <option value="9">Ophthalmology</option>
-                                        <option value="10">Obstetrics and Gynecology</option>
-                                        <option value="11">Radiology</option>
-                                        <option value="12">Oncology</option>
-                                       
+                                        @if (Model != null)
+                                        {
+                                            @foreach (var department in Model)
+                                            {
+                                                <option value="@department.Dnum">@department.Dname</option>
+                                            }
+                                        }else
+                                        {
+                                            <option value="" disabled>-- No Departments Available --</option>
+
+                                        }
                                     </select>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <select class="form-select bg-white border-0" style="height: 55px;" id="doctor" required>
                                         <option value="" disabled selected>Select Doctor</option>
-                                        <option value="1">Ahmed Abdelnaser</option>
-                                        <option value="2">Mohamed Essam</option>
-                                        <option value="3">HamzaMohamed</option>
-                                        <option value="4">Mohamed Abasiouny</option>
-                                        <option value="5">Mona Ashraf</option>
-                                        <option value="6">Ahmed Samir</option>
-                                        <option value="7">Eman Donia</option> 
+                                        @if (Model != null)
+                                        {
+                                            @foreach (var doctor in Model)
+                                            {
+                                                <option value="@doctor.DoctorName">@doctor.DoctorName</option>
+
+                                            }
+                                        }else{
+                                            <option value="" disabled>-- No Departments Available --</option>
+
+                                        }
+                                     
+                                        @*                    <option value="1">Ahmed Abdelnaser</option>
+                                         <option value="2">Mohamed Essam</option>
+                                         <option value="3">HamzaMohamed</option>
+                                         <option value="4">Mohammed Albasuony</option>
+                                         <option value="5">Mona Ashraf</option>
+                                         <option value="6">Ahmed Samir</option>
+                                         <option value="7">Eman Donia</option>  *@
                                         
                                     </select>
                                 </div>

@@ -8,6 +8,7 @@ using Hospital_Mangment_System_DAL.Repositary.Abstraction;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Security.Policy;
 
 namespace Hospital_Mangment_System_BLL.Service.Implementation
@@ -20,6 +21,7 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
         private readonly INurseRepo _nurseRepo;
         private readonly IPatientsRepo _patientRepo;
         private readonly IEmailSender _emailSender;
+        private readonly ILogger _Ilogger;
 
         public string Imagepath { get; private set; }
 
@@ -29,7 +31,9 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             IDoctorRepo doctorRepo,
             INurseRepo nurseRepo,
             IPatientsRepo patientRepo,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ILogger<AuthService> Ilooger
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -37,6 +41,7 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             _nurseRepo = nurseRepo;
             _patientRepo = patientRepo;
             _emailSender = emailSender;
+            _Ilogger = Ilooger;
         }
 
         // Register a Doctor
@@ -161,7 +166,19 @@ namespace Hospital_Mangment_System_BLL.Service.Implementation
             return "Invalid login attempt";
         }
 
-
+        public async Task<bool> SignOutAsync()
+        {
+            try
+            {
+                await _signInManager.SignOutAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _Ilogger.LogError(ex, "An error occured while signing out .");
+                return false;
+            }
+        }
     }
 
 }

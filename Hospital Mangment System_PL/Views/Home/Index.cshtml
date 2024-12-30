@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Azure
+@{
+    if (User.IsInRole("Admin"))
+    {
+        Context.Response.Redirect(Url.Action("ManageUsers", "Admin"));
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
 @* <a href="/" class="nav-item nav-link active">Home</a> *@
 <head>
@@ -72,7 +79,8 @@
                         <a href="@Url.Action("Pricing","Home")" class="nav-item nav-link">Pricing</a>
                         <a href="@Url.Action("Appointment","Home")" class="nav-item nav-link">Appointment</a>
                         <a href="@Url.Action("Contact","Home")" class="nav-item nav-link">Contact</a>
-                        @ViewBag.Username
+                      
+                        Welcome @User.Identity.Name
                     </div>
                 </div>
             </nav>
@@ -84,16 +92,30 @@
         <div class="container py-5">
             <div class="row justify-content-start">
                 <div class="col-lg-8 text-center text-lg-start">
-                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">Welcome To Our Hospital</h5>
+                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5"
+                        style="border-color: rgba(255, 255, 255, .3) !important;">
+                        Welcome To Our Hospital
+                    </h5>
                     <h1 class="display-1 text-white mb-md-4">Best Healthcare Solution In Your City</h1>
                     <div class="pt-2">
-                        <a href="@Url.Action("Login", "Account")" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Login</a>
-
+                        @if (!(User.IsInRole("Doctor") || User.IsInRole("Patient") || User.IsInRole("Nurse")))
+                        {
+                            <a href="@Url.Action("Login", "Account")" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2"
+                               aria-label="Login to your account">Login</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("SignOut", "Account")" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2"
+                            aria-label="Logout from your account">Logout</a>
+                            @Html.ActionLink("Manage Users", "ManageUsers", "Admin", null, new { @class = "btn btn-primary" })
+                            
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Hero End -->
     <!-- About Start -->
     <div class="container-fluid py-5">

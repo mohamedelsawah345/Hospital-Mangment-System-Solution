@@ -15,6 +15,7 @@ namespace Hospital_Mangment_System_BLL.Service.Abstrsction
         Task<bool> RegisterNurseAsync(RegisterVM model);
         Task<bool> RegisterPatientAsync(RegisterVM model);
         Task<string> LoginAsync(LoginVM model);
+        Task<bool> SignOutAsync();
         
         //Task<IdentityResult> RegisterUserAsync(RegisterVM model);
     }

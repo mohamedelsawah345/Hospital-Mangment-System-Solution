@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_Mangment_System_PL.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;
@@ -15,8 +15,9 @@ namespace Hospital_Mangment_System_PL.Controllers
             _adminService = adminService;
         }
 
-        // View all users
-        public async Task<IActionResult> ManageUsers()
+		// View all users Admin/ManageUsers
+
+		public async Task<IActionResult> ManageUsers()
         {
             var users = await _adminService.GetAllUsersAsync(); 
             return View(users); ;

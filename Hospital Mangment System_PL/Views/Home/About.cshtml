@@ -1,4 +1,10 @@
-﻿
+﻿@using Azure
+@{
+    if (User.IsInRole("Admin"))
+    {
+        Context.Response.Redirect(Url.Action("ManageUsers", "Admin"));
+    }
+}
 @{
     ViewData["Title"] = "About";
 }

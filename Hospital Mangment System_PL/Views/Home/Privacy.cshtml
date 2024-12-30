@@ -2,5 +2,11 @@
     ViewData["Title"] = "Privacy Policy";
 }
 <h1>@ViewData["Title"]</h1>
-
+@using Azure
+@{
+    if (User.IsInRole("Admin"))
+    {
+        Context.Response.Redirect(Url.Action("ManageUsers", "Admin"));
+    }
+}
 <p>Use this page to detail your site's privacy policy.</p>

@@ -2,6 +2,7 @@
 using Hospital_Mangment_System_BLL.View_model.DoctorVM;
 using Hospital_Mangment_System_BLL.View_model.patientVM;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_Mangment_System_PL.Controllers
@@ -19,7 +20,7 @@ namespace Hospital_Mangment_System_PL.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Doctor")]
+        //[Authorize(Roles = "Doctor")]
         public async Task<IActionResult> GetAllDoctors()
         {
             var result = await _doctorService.GetAllAsync();
@@ -39,6 +40,7 @@ namespace Hospital_Mangment_System_PL.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles= "Doctor")]
         public async Task<IActionResult> AddDoctor(CreateDoctorVM doctorVM)
         {
             if (ModelState.IsValid)
@@ -61,6 +63,7 @@ namespace Hospital_Mangment_System_PL.Controllers
         }
 
         [HttpGet]
+        //url->doctor/UpdateDoctor
         public async Task<IActionResult> UpdateDoctor(string id)
         {
             var doctor = await _doctorService.GetByIdAsync(id);
